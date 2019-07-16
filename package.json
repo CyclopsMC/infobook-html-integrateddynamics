@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "cyclops-infobook-html",
+  "name": "cyclops-infobook-html-integrateddynamics",
   "version": "1.0.0",
   "description": "Output Integrated Dynamics infobooks as HTML",
   "main": "index.js",
@@ -27,7 +27,6 @@
     "build-watch": "tsc --watch",
     "validate": "npm ls",
     "prepare": "npm run build",
-    "version": "manual-git-changelog onversion",
 	"generate": "npm run generate:metadata && npm run generate:html",
 	"generate:metadata": "generate-mod-metadata modpack.json generate",
 	"generate:html": "generate-cyclops-infobook-html config.json output"
