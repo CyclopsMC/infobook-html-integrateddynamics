@@ -30,7 +30,7 @@ Configure the generator using the following files:
 Executing `npm run generate` will do two things:
 
 1. Generate metadata by starting a temporary Forge server.
-2. Output HTML to `output/`/
+2. Output HTML to `output/`.
 
 ## License
 This software is written by [Ruben Taelman](http://rubensworks.net/).

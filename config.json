@@ -1,4 +1,7 @@
 {
+  "plugins": [
+    "."
+  ],
   "baseDir": "/Users/kroeser/Documents/Development/IntegratedDynamics/",
   "baseUrl": "http://localhost:8080/",
   "colors": {
