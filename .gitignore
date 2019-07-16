@@ -1,0 +1,10 @@
+.idea
+node_modules
+*.d.ts
+*.js
+*.js.map
+output
+cyclops_registries
+server
+mc_assets
+registries

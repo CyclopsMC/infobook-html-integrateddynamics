@@ -1,0 +1,206 @@
+{
+  "baseDir": "/Users/kroeser/Documents/Development/IntegratedDynamics/",
+  "baseUrl": "http://localhost:8080/",
+  "colors": {
+    "h": "#16384c",
+    "border": "#3381ad",
+    "border_light": "#49b8f7",
+    "border_muted": "#9fcae3",
+    "main_background": "#e6d6ac",
+    "outer_background": "#09171f"
+  },
+  "title": "Integrated Dynamics - On the Dynamics of Integration",
+  "sectionsFile": "src/main/resources/assets/integrateddynamics/info/on_the_dynamics_of_integration.xml",
+  "modId": "integrateddynamics",
+  "resources": [
+    "src/main/resources/"
+  ],
+  "keybindings": {
+    "key.integrateddynamics.logic_programmer_focus_search": "Alt + F",
+    "key.integrateddynamics.logic_programmer_open_rename": "Alt + R"
+  },
+  "recipeOverrides": {
+    "integrateddynamics:logic_programmer": [
+      {
+        "input": [
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_block",
+              "data": 0,
+              "count": 1
+            }
+          ],
+          [
+            {
+              "item": "minecraft:crafting_table",
+              "data": 0,
+              "count": 1
+            }
+          ]
+        ],
+        "output": {
+          "item": "integrateddynamics:logic_programmer",
+          "data": 0,
+          "count": 1
+        }
+      }
+    ],
+    "integrateddynamics:part_redstone_reader_item": [
+      {
+        "input": [
+          [],
+          [
+            {
+              "item": "minecraft:redstone_block",
+              "data": 0,
+              "count": 1
+            }
+          ],
+          [],
+          [
+            {
+              "item": "minecraft:redstone",
+              "data": 0,
+              "count": 1
+            }
+          ],
+          [
+            {
+              "item": "integrateddynamics:variable_transformer",
+              "data": 1,
+              "count": 1
+            }
+          ],
+          [
+            {
+              "item": "minecraft:redstone",
+              "data": 0,
+              "count": 1
+            }
+          ]
+        ],
+        "output": {
+          "item": "integrateddynamics:part_redstone_reader_item",
+          "data": 0,
+          "count": 1
+        },
+        "width": 3,
+        "height": 2
+      }
+    ],
+    "integrateddynamics:facade": [
+      {
+        "input": [
+          [],
+          [
+            {
+              "item": "minecraft:slime_ball",
+              "data": 0
+            }
+          ],
+          [],
+          [
+            {
+              "item": "minecraft:slime_ball",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_block",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "minecraft:slime_ball",
+              "data": 0
+            }
+          ],
+          [],
+          [
+            {
+              "item": "minecraft:slime_ball",
+              "data": 0
+            }
+          ],
+          []
+        ],
+        "output": {
+          "item": "integrateddynamics:facade",
+          "data": 0,
+          "count": 1
+        },
+        "width": 3,
+        "height": 3
+      }
+    ],
+    "integrateddynamics:variable": [
+      {
+        "input": [
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_chunk",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_chunk",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_chunk",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_chunk",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "minecraft:paper",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_chunk",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_chunk",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_chunk",
+              "data": 0
+            }
+          ],
+          [
+            {
+              "item": "integrateddynamics:crystalized_menril_chunk",
+              "data": 0
+            }
+          ]
+        ],
+        "output": {
+          "item": "integrateddynamics:variable",
+          "data": 0,
+          "count": 24
+        },
+        "width": 3,
+        "height": 3
+      }
+    ]
+  }
+}

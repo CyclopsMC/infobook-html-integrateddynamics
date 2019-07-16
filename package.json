@@ -1,0 +1,38 @@
+{
+  "private": true,
+  "name": "cyclops-infobook-html",
+  "version": "1.0.0",
+  "description": "Output Integrated Dynamics infobooks as HTML",
+  "main": "index.js",
+  "repository": "git@github.com:CyclopsMC/infobook-html.git",
+  "bugs": {
+    "url": "https://github.com/CyclopsMC/infobook-html-integrateddynamics/issues"
+  },
+  "homepage": "https://github.com/CyclopsMC/infobook-html-integrateddynamics#readme",
+  "author": "Ruben Taelman <rubensworks@gmail.com>",
+  "license": "MIT",
+  "pre-commit": [
+    "build",
+    "lint"
+  ],
+  "devDependencies": {
+    "pre-commit": "^1.2.2",
+    "tslint": "^5.16.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.4.5"
+  },
+  "scripts": {
+    "lint": "tslint index.ts lib/**/*.ts test/**/*.ts bin/**/*.ts --exclude '**/*.d.ts'",
+    "build": "tsc",
+    "build-watch": "tsc --watch",
+    "validate": "npm ls",
+    "prepare": "npm run build",
+    "version": "manual-git-changelog onversion",
+	"generate": "npm run generate:metadata && npm run generate:html",
+	"generate:metadata": "generate-mod-metadata modpack.json generate",
+	"generate:html": "generate-cyclops-infobook-html config.json output"
+  },
+  "dependencies": {
+    "cyclops-infobook-html": "^1.0.0"
+  }
+}

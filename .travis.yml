@@ -1,0 +1,16 @@
+language: java
+jdk:
+  - oraclejdk8
+node_js:
+ - NODE_VERSION=10
+install:
+  - nvm install $NODE_VERSION
+  - npm install
+script:
+  - nvm use $NODE_VERSION
+  - npm run build
+  - npm run lint
+  - npm run generate
+cache:
+  directories:
+    - node_modules
