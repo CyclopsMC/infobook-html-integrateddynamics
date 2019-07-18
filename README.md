@@ -14,7 +14,7 @@ This makes use of the [Cyclops Infobook HTML](https://github.com/CyclopsMC/infob
 This phase should be done using the [Item Exporter mod](https://github.com/CyclopsMC/IconExporter).
 
 Simply create a modpack with all the mods that were downloaded in the previous step (including the Item Exporter mod),
-start a world, and run the `/iconexporter export` command.
+start a world, and run the `/iconexporter export 64` command.
 
 Next, copy the resulting contents of `icon-exports-x64` to `icons` in your project directory.
 

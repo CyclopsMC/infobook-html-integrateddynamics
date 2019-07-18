@@ -1,0 +1,11 @@
+.squeezer-recipe {
+    width: 400px;
+}
+
+.appendix .squeezer-recipe .appendix-icon {
+    position: relative;
+    top: 10px;
+    left: 183px;
+    margin-bottom: -28px;
+    z-index: 10;
+}

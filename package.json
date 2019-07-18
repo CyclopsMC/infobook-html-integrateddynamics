@@ -11,6 +11,16 @@
   "homepage": "https://github.com/CyclopsMC/infobook-html-integrateddynamics#readme",
   "author": "Ruben Taelman <rubensworks@gmail.com>",
   "license": "MIT",
+  "files": [
+    "bin/**/*.d.ts",
+    "bin/**/*.js",
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "template/**/*.pug",
+    "assets/**/*.pug",
+    "index.d.ts",
+    "index.js"
+  ],
   "pre-commit": [
     "build",
     "lint"
@@ -27,11 +37,12 @@
     "build-watch": "tsc --watch",
     "validate": "npm ls",
     "prepare": "npm run build",
-	"generate": "npm run generate:metadata && npm run generate:html",
-	"generate:metadata": "generate-mod-metadata modpack.json generate",
-	"generate:html": "generate-cyclops-infobook-html config.json output"
+    "generate": "npm run generate:metadata && npm run generate:html",
+    "generate:metadata": "generate-mod-metadata modpack.json generate",
+    "generate:html": "generate-cyclops-infobook-html config.json output"
   },
   "dependencies": {
-    "cyclops-infobook-html": "^1.0.0"
+    "cyclops-infobook-html": "^1.0.0",
+    "pug": "^2.0.4"
   }
 }
