@@ -47,7 +47,7 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
     const tag = data._;
     if (tag) {
       // Fetch all recipes with the given tag.
-      recipes = this.registryTagged[tag];
+      recipes = this.registryTagged['integrateddynamics:squeezer_recipe:' + tag];
       if (!recipes) {
         throw new Error(`Could not find any recipes for tag ${tag}`);
       }
