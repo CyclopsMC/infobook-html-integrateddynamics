@@ -121,7 +121,13 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
     const appendixIcon = serializer.createItemDisplay(this.resourceHandler,
       context.language, fileWriter, { item: 'integrateddynamics:' + this.machineName, data: 0 }, false);
 
-    return this.templateRecipe({ input, outputs, appendixIcon });
+    // Duration
+    let duration = '';
+    if (recipe.duration) {
+      duration = (recipe.duration / 20) + 's';
+    }
+
+    return this.templateRecipe({ input, outputs, appendixIcon, duration });
   }
 
 }
@@ -137,4 +143,5 @@ export interface IRecipeSqueezer {
     fluid?: IFluid;
   };
   tags: string[];
+  duration?: number;
 }
