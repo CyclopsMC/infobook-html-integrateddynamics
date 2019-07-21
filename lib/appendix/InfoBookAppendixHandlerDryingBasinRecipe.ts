@@ -81,7 +81,7 @@ export class InfoBookAppendixHandlerDryingBasinRecipe implements IInfoBookAppend
       getName: (context) => this.resourceHandler.getTranslation(
         'tile.blocks.integrateddynamics.' + this.machineName + '.name', context.language),
       toHtml: (context: ISerializeContext, fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) => {
-        return recipes.map((recipe) => this.serializeRecipe(recipe, context, fileWriter, serializer)).join('');
+        return recipes.map((recipe) => this.serializeRecipe(recipe, context, fileWriter, serializer)).join('<hr />');
       },
     };
   }

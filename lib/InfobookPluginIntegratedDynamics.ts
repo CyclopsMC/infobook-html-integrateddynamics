@@ -7,6 +7,7 @@ import {InfoBookAppendixHandlerMechanicalDryingBasinRecipe} from "./appendix/Inf
 import {InfoBookAppendixHandlerMechanicalSqueezerRecipe} from "./appendix/InfoBookAppendixHandlerMechanicalSqueezerRecipe";
 import {InfoBookAppendixHandlerOperator} from "./appendix/InfoBookAppendixHandlerOperator";
 import {InfoBookAppendixHandlerSqueezerRecipe} from "./appendix/InfoBookAppendixHandlerSqueezerRecipe";
+import {InfoBookAppendixHandlerPartAspect} from "./appendix/InfoBookAppendixHandlerPartAspect";
 
 /**
  * Infobook plugin for Integrated Dynamics.
@@ -24,12 +25,14 @@ export class InfobookPluginIntegratedDynamics implements IInfobookPlugin {
       new InfoBookAppendixHandlerDryingBasinRecipe(resourceLoader.getResourceHandler(), 'registries'));
     infoBookInitializer.registerAppendixHandler('integrateddynamics:mechanical_drying_basin_recipe',
       new InfoBookAppendixHandlerMechanicalDryingBasinRecipe(resourceLoader.getResourceHandler(), 'registries'));
-    infoBookInitializer.registerAppendixHandler('integrateddynamics:aspect',
-      new InfoBookAppendixHandlerAspect(resourceLoader.getResourceHandler(), 'registries'));
+    const aspectHandler = new InfoBookAppendixHandlerAspect(resourceLoader.getResourceHandler(), 'registries');
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:aspect', aspectHandler);
     infoBookInitializer.registerAppendixHandler('integrateddynamics:operator',
       new InfoBookAppendixHandlerOperator(resourceLoader.getResourceHandler(), 'registries'));
     infoBookInitializer.registerAppendixHandler('integrateddynamics:operators_output',
       new InfoBookAppendixHandlerOperator(resourceLoader.getResourceHandler(), 'registries'));
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:part_aspects',
+      new InfoBookAppendixHandlerPartAspect(resourceLoader.getResourceHandler(), 'registries', aspectHandler));
   }
 
   public getHeadSuffix(context: ISerializeContext): string {
