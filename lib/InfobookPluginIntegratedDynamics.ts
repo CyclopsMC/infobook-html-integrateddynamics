@@ -28,6 +28,8 @@ export class InfobookPluginIntegratedDynamics implements IInfobookPlugin {
       new InfoBookAppendixHandlerAspect(resourceLoader.getResourceHandler(), 'registries'));
     infoBookInitializer.registerAppendixHandler('integrateddynamics:operator',
       new InfoBookAppendixHandlerOperator(resourceLoader.getResourceHandler(), 'registries'));
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:operators_output',
+      new InfoBookAppendixHandlerOperator(resourceLoader.getResourceHandler(), 'registries'));
   }
 
   public getHeadSuffix(context: ISerializeContext): string {

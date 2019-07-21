@@ -1,10 +1,8 @@
 import {
   HtmlInfoBookSerializer,
   IFileWriter,
-  IFluid,
   IInfoAppendix,
   IInfoBookAppendixHandler,
-  IItem,
   ISerializeContext,
   ResourceHandler,
 } from "cyclops-infobook-html";
@@ -37,8 +35,8 @@ export class InfoBookAppendixHandlerOperator implements IInfoBookAppendixHandler
 
   public createAppendix(data: any): IInfoAppendix {
     const id = data._;
-    const operator = this.registry[id];
-    if (!operator) {
+    const operators: IOperator[] = id === '*' ? Object.values(this.registry) : [this.registry[id]];
+    if (!operators.length) {
       throw new Error(`Could not find the operator with id ${id}`);
     }
 
@@ -46,21 +44,26 @@ export class InfoBookAppendixHandlerOperator implements IInfoBookAppendixHandler
       getName: (context) => this.resourceHandler.getTranslation(
         'operator.operators.integrateddynamics.name', context.language),
       toHtml: (context: ISerializeContext, fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) => {
-        const name = this.resourceHandler.getTranslation(operator.name, context.language);
-        let description = '';
-        try {
-          description = this.resourceHandler.getTranslation(operator.description, context.language);
-        } catch (e) {
-          // Ignore missing description translations
-        }
-        const symbol = operator.symbol;
-        const inputs = operator.inputs.map((input) => InfoBookAppendixHandlerOperator.serializeValueType(
-          input, this.resourceHandler, context, serializer));
-        const output = InfoBookAppendixHandlerOperator.serializeValueType(
-          operator.output, this.resourceHandler, context, serializer);
-        return this.templateOperator({ name, description, symbol, inputs, output });
+        return operators.map((operator) => this.serializeOperator(operator, context, serializer)).join('');
       },
     };
+  }
+
+  public serializeOperator(operator: IOperator, context: ISerializeContext,
+                           serializer: HtmlInfoBookSerializer): string {
+    const name = this.resourceHandler.getTranslation(operator.name, context.language);
+    let description = '';
+    try {
+      description = this.resourceHandler.getTranslation(operator.description, context.language);
+    } catch (e) {
+      // Ignore missing description translations
+    }
+    const symbol = operator.symbol;
+    const inputs = operator.inputs.map((input) => InfoBookAppendixHandlerOperator.serializeValueType(
+      input, this.resourceHandler, context, serializer));
+    const output = InfoBookAppendixHandlerOperator.serializeValueType(
+      operator.output, this.resourceHandler, context, serializer);
+    return this.templateOperator({ name, description, symbol, inputs, output });
   }
 
 }
