@@ -1,0 +1,14 @@
+div(class="drying-basin-recipe")
+    div(class="appendix-icon") !{appendixIcon}
+    div(class="recipe-duration")=duration
+    div(class="inputs")
+        ul(class="alternatives")
+            each alt in input.item
+                li !{alt}
+        ul(class="alternatives")
+            li !{input.fluid}
+    div(class="arrow") &rarr;
+    div(class="output")
+        each output in outputs
+            .
+                !{output}

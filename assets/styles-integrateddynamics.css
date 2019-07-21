@@ -1,16 +1,19 @@
-.squeezer-recipe {
-    width: 400px;
+.squeezer-recipe,
+.drying-basin-recipe {
+    width: 300px;
 }
 
-.appendix .squeezer-recipe .appendix-icon {
+.appendix .squeezer-recipe .appendix-icon,
+.appendix .drying-basin-recipe .appendix-icon {
     position: relative;
     top: 10px;
-    left: 183px;
+    left: 133px;
     margin-bottom: -28px;
     z-index: 10;
 }
 
-.appendix .squeezer-recipe .recipe-duration {
+.appendix .squeezer-recipe .recipe-duration,
+.appendix .drying-basin-recipe .recipe-duration {
     font-size: 10px;
     position: relative;
     top: 36px;
