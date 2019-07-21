@@ -21,13 +21,15 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
   private readonly templateRecipe: compileTemplate;
   private readonly registry: IRecipeSqueezer[];
   private readonly registryTagged: {[tag: string]: IRecipeSqueezer[]};
+  private readonly machineName: string;
 
-  constructor(resourceHandler: ResourceHandler, registriesPath: string) {
+  constructor(resourceHandler: ResourceHandler, registriesPath: string, machineName: string = 'squeezer') {
+    this.machineName = machineName;
     this.resourceHandler = resourceHandler;
     this.templateRecipe = compilePug(__dirname + '/../../template/appendix/squeezer_recipe.pug');
 
     const registry: IRecipeRegistrySqueezer = JSON.parse(
-      fs.readFileSync(join(registriesPath, 'squeezer_recipe.json'), "utf8"));
+      fs.readFileSync(join(registriesPath, this.machineName + '_recipe.json'), "utf8"));
     this.registry = [];
     this.registryTagged = {};
     for (const recipe of registry.recipes) {
@@ -44,10 +46,11 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
 
   public createAppendix(data: any): IInfoAppendix {
     let recipes: IRecipeSqueezer[] = [];
-    const tag = data._;
+    let tag = data._;
     if (tag) {
       // Fetch all recipes with the given tag.
-      recipes = this.registryTagged['integrateddynamics:squeezer_recipe:' + tag];
+      tag = 'integrateddynamics:' + this.machineName + '_recipe:' + tag;
+      recipes = this.registryTagged[tag];
       if (!recipes) {
         throw new Error(`Could not find any recipes for tag ${tag}`);
       }
@@ -87,7 +90,7 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
 
     return {
       getName: (context) => this.resourceHandler.getTranslation(
-        'tile.blocks.integrateddynamics.squeezer.name', context.language),
+        'tile.blocks.integrateddynamics.' + this.machineName + '.name', context.language),
       toHtml: (context: ISerializeContext, fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) => {
         return recipes.map((recipe) => this.serializeRecipe(recipe, context, fileWriter, serializer)).join('');
       },
@@ -116,7 +119,7 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
     }
 
     const appendixIcon = serializer.createItemDisplay(this.resourceHandler,
-      context.language, fileWriter, { item: 'integrateddynamics:squeezer', data: 0 }, false);
+      context.language, fileWriter, { item: 'integrateddynamics:' + this.machineName, data: 0 }, false);
 
     return this.templateRecipe({ input, outputs, appendixIcon });
   }

@@ -1,5 +1,8 @@
 import {IInfobookPlugin, InfoBookInitializer, ResourceLoader} from "cyclops-infobook-html";
 import {ISerializeContext} from "cyclops-infobook-html/lib/serialize/HtmlInfoBookSerializer";
+import {
+  InfoBookAppendixHandlerMechanicalSqueezerRecipe,
+} from "./appendix/InfoBookAppendixHandlerMechanicalSqueezerRecipe";
 import {InfoBookAppendixHandlerSqueezerRecipe} from "./appendix/InfoBookAppendixHandlerSqueezerRecipe";
 
 /**
@@ -12,6 +15,8 @@ export class InfobookPluginIntegratedDynamics implements IInfobookPlugin {
   public load(infoBookInitializer: InfoBookInitializer, resourceLoader: ResourceLoader, config: any): void {
     infoBookInitializer.registerAppendixHandler('integrateddynamics:squeezer_recipe',
       new InfoBookAppendixHandlerSqueezerRecipe(resourceLoader.getResourceHandler(), 'registries'));
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:mechanical_squeezer_recipe',
+      new InfoBookAppendixHandlerMechanicalSqueezerRecipe(resourceLoader.getResourceHandler(), 'registries'));
   }
 
   public getHeadSuffix(context: ISerializeContext): string {
