@@ -5,6 +5,7 @@ import {InfoBookAppendixHandlerAspect} from "./appendix/InfoBookAppendixHandlerA
 import {InfoBookAppendixHandlerDryingBasinRecipe} from "./appendix/InfoBookAppendixHandlerDryingBasinRecipe";
 import {InfoBookAppendixHandlerMechanicalDryingBasinRecipe} from "./appendix/InfoBookAppendixHandlerMechanicalDryingBasinRecipe";
 import {InfoBookAppendixHandlerMechanicalSqueezerRecipe} from "./appendix/InfoBookAppendixHandlerMechanicalSqueezerRecipe";
+import {InfoBookAppendixHandlerOperator} from "./appendix/InfoBookAppendixHandlerOperator";
 import {InfoBookAppendixHandlerSqueezerRecipe} from "./appendix/InfoBookAppendixHandlerSqueezerRecipe";
 
 /**
@@ -25,6 +26,8 @@ export class InfobookPluginIntegratedDynamics implements IInfobookPlugin {
       new InfoBookAppendixHandlerMechanicalDryingBasinRecipe(resourceLoader.getResourceHandler(), 'registries'));
     infoBookInitializer.registerAppendixHandler('integrateddynamics:aspect',
       new InfoBookAppendixHandlerAspect(resourceLoader.getResourceHandler(), 'registries'));
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:operator',
+      new InfoBookAppendixHandlerOperator(resourceLoader.getResourceHandler(), 'registries'));
   }
 
   public getHeadSuffix(context: ISerializeContext): string {

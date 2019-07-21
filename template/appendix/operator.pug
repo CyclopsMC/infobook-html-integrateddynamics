@@ -1,0 +1,8 @@
+div(class="operator")
+    span(class="operator-name")=name
+    span(class="operator-symbol")=symbol
+    span(class="operator-description")=description
+    ul
+        each input in inputs
+            li !{input}
+        li !{output}

@@ -11,6 +11,7 @@ import {
 import * as fs from "fs";
 import {join} from "path";
 import {compileFile as compilePug, compileTemplate} from "pug";
+import {InfoBookAppendixHandlerOperator, IValueType} from "./InfoBookAppendixHandlerOperator";
 
 /**
  * Handles aspect appendices.
@@ -42,13 +43,13 @@ export class InfoBookAppendixHandlerAspect implements IInfoBookAppendixHandler {
       toHtml: (context: ISerializeContext, fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) => {
         const name = this.resourceHandler.getTranslation(aspect.name, context.language);
         const description = this.resourceHandler.getTranslation(aspect.description, context.language);
-        const value = serializer.formatString(aspect.type === 'read'
+        const value = aspect.type === 'read'
           ? '<strong>' + this.resourceHandler.getTranslation('gui.integrateddynamics.output', context.language)
             .replace('%s', '') + '</strong>'
-          + aspect.valueColor + this.resourceHandler.getTranslation(aspect.outputValue, context.language) + '§0'
+          + InfoBookAppendixHandlerOperator.serializeValueType(aspect.output, this.resourceHandler, context, serializer)
           : '<strong>' + this.resourceHandler.getTranslation('gui.integrateddynamics.input', context.language)
             .replace('%s', '') + '</strong>'
-          + aspect.valueColor + this.resourceHandler.getTranslation(aspect.inputValue, context.language) + '§0');
+          + InfoBookAppendixHandlerOperator.serializeValueType(aspect.input, this.resourceHandler, context, serializer);
         const propertiesString = aspect.properties.length > 0 ? this.resourceHandler
           .getTranslation('gui.integrateddynamics.part.properties', context.language) : '';
         const properties = aspect.properties
@@ -66,8 +67,7 @@ export interface IAspectRead {
   name: string;
   description: string;
   type: 'read';
-  outputValue: string;
-  valueColor: string;
+  output: IValueType;
   properties: string[];
 }
 
@@ -75,7 +75,6 @@ export interface IAspectWrite {
   name: string;
   description: string;
   type: 'write';
-  inputValue: string;
-  valueColor: string;
+  input: IValueType;
   properties: string[];
 }

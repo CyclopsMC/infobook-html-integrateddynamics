@@ -1,6 +1,7 @@
 .squeezer-recipe,
 .drying-basin-recipe,
-.aspect{
+.aspect,
+.operator {
     width: 300px;
 }
 
@@ -39,4 +40,44 @@
 
 .aspect .aspect-properties li {
     list-style-type: circle;
+}
+
+.appendix .operator {
+    font-size: 12px;
+    text-align: left;
+}
+
+.appendix .operator .operator-name {
+    font-weight: bold;
+}
+
+.appendix .operator .operator-symbol {
+    font-style: italic;
+}
+
+.appendix .operator .operator-symbol::before {
+    content: ' (';
+}
+
+.appendix .operator ul {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.appendix .operator ul li {
+    display: inline-block;
+    padding: 2px;
+}
+
+.appendix .operator ul li:not(:first-child)::before {
+    content: "\002192";
+}
+
+.appendix .operator .operator-symbol::after {
+    content: ')';
+}
+
+.appendix .operator .operator-description::before {
+    content: ': ';
 }
