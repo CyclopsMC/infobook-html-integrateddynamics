@@ -1,6 +1,7 @@
 // tslint:disable:max-line-length
 import {IInfobookPlugin, InfoBookInitializer, ResourceLoader} from "cyclops-infobook-html";
 import {ISerializeContext} from "cyclops-infobook-html/lib/serialize/HtmlInfoBookSerializer";
+import {InfoBookAppendixHandlerAspect} from "./appendix/InfoBookAppendixHandlerAspect";
 import {InfoBookAppendixHandlerDryingBasinRecipe} from "./appendix/InfoBookAppendixHandlerDryingBasinRecipe";
 import {InfoBookAppendixHandlerMechanicalDryingBasinRecipe} from "./appendix/InfoBookAppendixHandlerMechanicalDryingBasinRecipe";
 import {InfoBookAppendixHandlerMechanicalSqueezerRecipe} from "./appendix/InfoBookAppendixHandlerMechanicalSqueezerRecipe";
@@ -22,6 +23,8 @@ export class InfobookPluginIntegratedDynamics implements IInfobookPlugin {
       new InfoBookAppendixHandlerDryingBasinRecipe(resourceLoader.getResourceHandler(), 'registries'));
     infoBookInitializer.registerAppendixHandler('integrateddynamics:mechanical_drying_basin_recipe',
       new InfoBookAppendixHandlerMechanicalDryingBasinRecipe(resourceLoader.getResourceHandler(), 'registries'));
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:aspect',
+      new InfoBookAppendixHandlerAspect(resourceLoader.getResourceHandler(), 'registries'));
   }
 
   public getHeadSuffix(context: ISerializeContext): string {

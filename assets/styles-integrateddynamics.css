@@ -1,5 +1,6 @@
 .squeezer-recipe,
-.drying-basin-recipe {
+.drying-basin-recipe,
+.aspect{
     width: 300px;
 }
 
@@ -17,4 +18,25 @@
     font-size: 10px;
     position: relative;
     top: 36px;
+}
+
+.appendix .aspect {
+    font-size: 12px;
+    text-align: left;
+}
+
+.appendix .aspect .aspect-name {
+    font-weight: bold;
+}
+
+.appendix .aspect .aspect-name::after {
+    content: ': ';
+}
+
+.aspect .aspect-properties .label {
+    font-weight: bold;
+}
+
+.aspect .aspect-properties li {
+    list-style-type: circle;
 }

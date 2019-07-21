@@ -1,0 +1,9 @@
+div(class="aspect")
+    span(class="aspect-name")=name
+    span(class="aspect-description")=description
+    p(class="aspect-value") !{value}
+    div(class="aspect-properties")
+        span(class="label")=propertiesString
+        ul
+            each property in properties
+                li=property
