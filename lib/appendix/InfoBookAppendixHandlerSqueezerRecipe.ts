@@ -96,7 +96,6 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
 
   protected serializeRecipe(recipe: IRecipeSqueezer, context: ISerializeContext,
                             fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) {
-    // TODO: somehow load custom css
     // Input
     const input = recipe.input.map((item) => serializer.createItemDisplay(this.resourceHandler,
       context.language, fileWriter, item, true));
@@ -104,8 +103,12 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
     // Outputs
     const outputs = [];
     for (const item of recipe.output.items) {
+      let annotation = '';
+      if ((<any> item).chance < 1) {
+        annotation = (<any> item).chance;
+      }
       outputs.push(serializer.createItemDisplay(this.resourceHandler,
-        context.language, fileWriter, item, true));
+        context.language, fileWriter, item, true, annotation));
     }
     if (recipe.output.fluid) {
       outputs.push(serializer.createFluidDisplay(this.resourceHandler,
