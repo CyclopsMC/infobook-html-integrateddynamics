@@ -15,9 +15,6 @@
   "title": "Integrated Dynamics - On the Dynamics of Integration",
   "sectionsFile": "src/main/resources/assets/integrateddynamics/info/on_the_dynamics_of_integration.xml",
   "modId": "integrateddynamics",
-  "resources": [
-    "src/main/resources/"
-  ],
   "keybindings": {
     "key.integrateddynamics.logic_programmer_focus_search": "Alt + F",
     "key.integrateddynamics.logic_programmer_open_rename": "Alt + R"
