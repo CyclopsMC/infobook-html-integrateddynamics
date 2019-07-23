@@ -90,24 +90,24 @@ export class InfoBookAppendixHandlerDryingBasinRecipe implements IInfoBookAppend
                             fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) {
     // Input
     const inputItem = recipe.input.item.map((item) => serializer.createItemDisplay(this.resourceHandler,
-      context.language, fileWriter, item, true));
+      context, fileWriter, item, true));
     const inputFluid = recipe.input.fluid ? serializer.createFluidDisplay(this.resourceHandler,
-      context.language, fileWriter, recipe.input.fluid, true) : null;
+      context, fileWriter, recipe.input.fluid, true) : null;
     const input = { item: inputItem, fluid: inputFluid };
 
     // Outputs
     const outputs = [];
     if (recipe.output.item) {
       outputs.push(serializer.createItemDisplay(this.resourceHandler,
-        context.language, fileWriter, recipe.output.item, true));
+        context, fileWriter, recipe.output.item, true));
     }
     if (recipe.output.fluid) {
       outputs.push(serializer.createFluidDisplay(this.resourceHandler,
-        context.language, fileWriter, recipe.output.fluid, true));
+        context, fileWriter, recipe.output.fluid, true));
     }
 
     const appendixIcon = serializer.createItemDisplay(this.resourceHandler,
-      context.language, fileWriter, { item: 'integrateddynamics:' + this.machineName, data: 0 }, false);
+      context, fileWriter, { item: 'integrateddynamics:' + this.machineName, data: 0 }, false);
 
     // Duration
     let duration = '';

@@ -101,7 +101,7 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
                             fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) {
     // Input
     const input = recipe.input.map((item) => serializer.createItemDisplay(this.resourceHandler,
-      context.language, fileWriter, item, true));
+      context, fileWriter, item, true));
 
     // Outputs
     const outputs = [];
@@ -111,15 +111,15 @@ export class InfoBookAppendixHandlerSqueezerRecipe implements IInfoBookAppendixH
         annotation = (<any> item).chance;
       }
       outputs.push(serializer.createItemDisplay(this.resourceHandler,
-        context.language, fileWriter, item, true, annotation));
+        context, fileWriter, item, true, annotation));
     }
     if (recipe.output.fluid) {
       outputs.push(serializer.createFluidDisplay(this.resourceHandler,
-        context.language, fileWriter, recipe.output.fluid, true));
+        context, fileWriter, recipe.output.fluid, true));
     }
 
     const appendixIcon = serializer.createItemDisplay(this.resourceHandler,
-      context.language, fileWriter, { item: 'integrateddynamics:' + this.machineName, data: 0 }, false);
+      context, fileWriter, { item: 'integrateddynamics:' + this.machineName, data: 0 }, false);
 
     // Duration
     let duration = '';
