@@ -32,8 +32,8 @@ export class InfoBookAppendixHandlerPartAspect implements IInfoBookAppendixHandl
       fs.readFileSync(join(registriesPath, 'aspect.json'), "utf8"));
   }
 
-  public createAppendix(data: any): IInfoAppendix {
-    const id = `parttype.parttypes.integrateddynamics.${data._}.name`;
+  public createAppendix(data: any, modId: string): IInfoAppendix {
+    const id = `parttype.parttypes.${modId}.${data._}.name`;
     const partAspects = this.registryPartAspect[id];
     if (!partAspects) {
       throw new Error(`Could not find a part with aspects for id ${id}`);
