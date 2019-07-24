@@ -7,11 +7,27 @@
       "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     },
     {
+      "artifact": "org.cyclops.commoncapabilities:CommonCapabilities:1.12.2-2.4.4-309",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+    },
+    {
       "artifact": "org.cyclops.integrateddynamics:IntegratedDynamics:1.12.2-1.0.9-1317",
       "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     },
     {
-      "artifact": "org.cyclops.commoncapabilities:CommonCapabilities:1.12.2-2.4.4-309",
+      "artifact": "org.cyclops.integratedtunnels:IntegratedTunnels:1.12.2-1.6.10-335",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+    },
+    {
+      "artifact": "org.cyclops.integratedrest:IntegratedREST:1.12.2-1.1.1-34",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+    },
+    {
+      "artifact": "org.cyclops.integratedterminals:IntegratedTerminals:1.12.2-1.0.9-103",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+    },
+    {
+      "artifact": "org.cyclops.integratedcrafting:IntegratedCrafting:1.12.2-1.0.8-85",
       "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     }
   ]

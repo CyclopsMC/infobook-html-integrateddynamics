@@ -13,10 +13,49 @@
   },
   "title": "Integrated Dynamics - On the Dynamics of Integration",
   "sectionsFile": "mod_assets/integrateddynamics/info/on_the_dynamics_of_integration.xml",
+  "injectSections": {
+    "info_book.integrateddynamics.manual": [
+      {
+        "sectionsFile": "mod_assets/integratedtunnels/info/tunnels_info.xml",
+        "modId": "integratedtunnels"
+      },
+      {
+        "sectionsFile": "mod_assets/integratedcrafting/info/crafting_info.xml",
+        "modId": "integratedcrafting"
+      },
+      {
+        "sectionsFile": "mod_assets/integratedterminals/info/terminals_info.xml",
+        "modId": "integratedterminals"
+      },
+      {
+        "sectionsFile": "mod_assets/integratedrest/info/rest_info.xml",
+        "modId": "integratedrest"
+      }
+    ],
+    "info_book.integrateddynamics.tutorials": [
+      {
+        "sectionsFile": "mod_assets/integratedtunnels/info/tunnels_tutorials.xml",
+        "modId": "integratedtunnels"
+      },
+      {
+        "sectionsFile": "mod_assets/integratedcrafting/info/crafting_tutorials.xml",
+        "modId": "integratedcrafting"
+      },
+      {
+        "sectionsFile": "mod_assets/integratedterminals/info/terminals_tutorials.xml",
+        "modId": "integratedterminals"
+      }
+    ]
+  },
   "modId": "integrateddynamics",
   "keybindings": {
     "key.integrateddynamics.logic_programmer_focus_search": "Alt + F",
-    "key.integrateddynamics.logic_programmer_open_rename": "Alt + R"
+    "key.integrateddynamics.logic_programmer_open_rename": "Alt + R",
+    "key.integratedterminals.terminal.tab.next": "Tab",
+    "key.integratedterminals.terminal.tab.previous": "Shift + Tabb",
+    "key.integratedterminals.terminal.craftinggrid.clearplayer": "C",
+    "key.integratedterminals.terminal.craftinggrid.clearstorage": "Shift + C",
+    "key.integratedterminals.terminal.craftinggrid.balance": "B"
   },
   "recipeOverrides": {
     "integrateddynamics:logic_programmer": [
