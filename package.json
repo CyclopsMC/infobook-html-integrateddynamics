@@ -42,7 +42,7 @@
     "generate:html": "generate-cyclops-infobook-html config.json output"
   },
   "dependencies": {
-    "cyclops-infobook-html": "^1.0.0",
+    "cyclops-infobook-html": "^1.0.1",
     "pug": "^2.0.4"
   }
 }
