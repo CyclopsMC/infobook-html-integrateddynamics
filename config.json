@@ -4,6 +4,11 @@
   ],
   "baseUrl": "/",
   "googleAnalytics": "UA-4197493-14",
+  "googleAdsense": {
+    "client": "ca-pub-1739452779444222",
+    "slot": "9661198645",
+    "format": "auto"
+  },
   "colors": {
     "h": "#16384c",
     "border": "#3381ad",
