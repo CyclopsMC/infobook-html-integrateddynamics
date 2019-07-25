@@ -1,12 +1,12 @@
-div(class="squeezer-recipe")
-    div(class="appendix-icon") !{appendixIcon}
-    div(class="recipe-duration")=duration
-    div(class="inputs")
+div(class="squeezer-recipe", typeof="schema:Action", property="schema:potentialAction")
+    div(class="appendix-icon", rel="schema:instrument") !{appendixIcon}
+    div(class="recipe-duration", property="schema:duration", datatype="xsd:duration")=duration
+    div(class="inputs", rel="schema:item")
         ul(class="alternatives")
             each alt in input
                 li !{alt}
     div(class="arrow") &rarr;
-    div(class="output")
+    div(class="output", rel="schema:result")
         each output in outputs
             .
                 !{output}
