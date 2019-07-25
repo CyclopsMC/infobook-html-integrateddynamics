@@ -3,6 +3,7 @@
     "."
   ],
   "baseUrl": "/",
+  "googleAnalytics": "UA-4197493-14",
   "colors": {
     "h": "#16384c",
     "border": "#3381ad",
