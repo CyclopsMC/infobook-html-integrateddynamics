@@ -1,0 +1,83 @@
+.squeezer-recipe,
+.drying-basin-recipe,
+.aspect,
+.operator {
+    width: 300px;
+}
+
+.appendix .squeezer-recipe .appendix-icon,
+.appendix .drying-basin-recipe .appendix-icon {
+    position: relative;
+    top: 10px;
+    left: 133px;
+    margin-bottom: -28px;
+    z-index: 10;
+}
+
+.appendix .squeezer-recipe .recipe-duration,
+.appendix .drying-basin-recipe .recipe-duration {
+    font-size: 10px;
+    position: relative;
+    top: 36px;
+}
+
+.appendix .aspect {
+    font-size: 12px;
+    text-align: left;
+}
+
+.appendix .aspect .aspect-name {
+    font-weight: bold;
+}
+
+.appendix .aspect .aspect-name::after {
+    content: ': ';
+}
+
+.aspect .aspect-properties .label {
+    font-weight: bold;
+}
+
+.aspect .aspect-properties li {
+    list-style-type: circle;
+}
+
+.appendix .operator {
+    font-size: 12px;
+    text-align: left;
+}
+
+.appendix .operator .operator-name {
+    font-weight: bold;
+}
+
+.appendix .operator .operator-symbol {
+    font-style: italic;
+}
+
+.appendix .operator .operator-symbol::before {
+    content: ' (';
+}
+
+.appendix .operator ul {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.appendix .operator ul li {
+    display: inline-block;
+    padding: 2px;
+}
+
+.appendix .operator ul li:not(:first-child)::before {
+    content: "\002192";
+}
+
+.appendix .operator .operator-symbol::after {
+    content: ')';
+}
+
+.appendix .operator .operator-description::before {
+    content: ': ';
+}
