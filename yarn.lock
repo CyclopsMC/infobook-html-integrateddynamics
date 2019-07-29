@@ -304,10 +304,10 @@ cross-spawn@^5.0.1:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cyclops-infobook-html@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/cyclops-infobook-html/-/cyclops-infobook-html-1.0.1.tgz#09c777bb28c677cf008e4beac3d683077a3ac465"
-  integrity sha512-vZ1o9XmvSV/kh1LqTwF8I7qDL3fd02EYat484CbtewLtQCBQZ8ErV0/s1hjgI8MAh4XFHiM1r0ap9VXRwAfnVg==
+cyclops-infobook-html@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cyclops-infobook-html/-/cyclops-infobook-html-1.1.0.tgz#13df901452a1cb487a845c6d327e5bd956a9096e"
+  integrity sha512-IcV59/V4x5AghzRPbAuGNyUUDOSnO2H2pFZI8qwrsE14YnlhDa3rLrbaBgK9BiqOFZaFgtIeGJkDDll555PBbg==
   dependencies:
     "@types/mkdirp" "^0.5.2"
     "@types/ncp" "^2.0.1"

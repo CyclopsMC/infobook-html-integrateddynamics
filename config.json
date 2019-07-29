@@ -89,7 +89,8 @@
           "item": "integrateddynamics:logic_programmer",
           "data": 0,
           "count": 1
-        }
+        },
+        "tags": []
       }
     ],
     "integrateddynamics:part_redstone_reader_item": [
@@ -132,7 +133,8 @@
           "count": 1
         },
         "width": 3,
-        "height": 2
+        "height": 2,
+        "tags": []
       }
     ],
     "integrateddynamics:facade": [
@@ -179,7 +181,8 @@
           "count": 1
         },
         "width": 3,
-        "height": 3
+        "height": 3,
+        "tags": []
       }
     ],
     "integrateddynamics:variable": [
@@ -246,7 +249,8 @@
           "count": 24
         },
         "width": 3,
-        "height": 3
+        "height": 3,
+        "tags": []
       }
     ]
   }
