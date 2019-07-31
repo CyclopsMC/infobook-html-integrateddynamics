@@ -2,7 +2,7 @@
   "plugins": [
     "."
   ],
-  "baseUrl": "/",
+  "baseUrl": "https://integrateddynamics.rubensworks.net/book/",
   "googleAnalytics": "UA-4197493-14",
   "googleAdsense": {
     "client": "ca-pub-1739452779444222",
