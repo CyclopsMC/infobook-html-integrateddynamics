@@ -17,7 +17,7 @@
     "main_background": "#e6d6ac",
     "outer_background": "#09171f"
   },
-  "icon": "/assets/icons/integrateddynamics__cable__0.png",
+  "icon": "https://integrateddynamics.rubensworks.net/book/assets/icons/integrateddynamics__cable__0.png",
   "modId": "integrateddynamics",
   "modName": "Integrated Dynamics",
   "modUrl": "https://www.curseforge.com/minecraft/mc-mods/integrated-dynamics",
