@@ -3,9 +3,10 @@
   "forge": "14.23.5.2838",
   "mods": [
     {
-      "type": "maven",
-      "artifact": "org.cyclops.cyclopscore:CyclopsCore:1.12.2-1.4.0-967",
-      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+      "type": "curseforge",
+      "project": "cyclops-core",
+      "artifact": "CyclopsCore-1.12.2",
+      "version": "1.5.0"
     },
     {
       "type": "curseforge",
@@ -14,9 +15,10 @@
       "version": "2.4.4"
     },
     {
-      "type": "maven",
-      "artifact": "org.cyclops.integrateddynamics:IntegratedDynamics:1.12.2-1.0.17-1368",
-      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+      "type": "curseforge",
+      "project": "integrated-dynamics",
+      "artifact": "IntegratedDynamics-1.12.2",
+      "version": "1.0.18"
     },
     {
       "type": "curseforge",
