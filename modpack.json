@@ -18,7 +18,7 @@
       "type": "curseforge",
       "project": "integrated-dynamics",
       "artifact": "IntegratedDynamics-1.12.2",
-      "version": "1.0.18"
+      "version": "1.1.0"
     },
     {
       "type": "curseforge",
@@ -30,7 +30,7 @@
       "type": "curseforge",
       "project": "integrated-terminals",
       "artifact": "IntegratedTerminals-1.12.2",
-      "version": "1.0.9"
+      "version": "1.0.10"
     },
     {
       "type": "curseforge",
