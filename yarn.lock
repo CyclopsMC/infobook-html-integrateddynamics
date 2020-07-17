@@ -304,10 +304,10 @@ cross-spawn@^5.0.1:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cyclops-infobook-html@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/cyclops-infobook-html/-/cyclops-infobook-html-1.1.1.tgz#d892dd3ae303fccb6f58e16673508cd458ef29d3"
-  integrity sha512-5R03nSo2dPptsZcVxu1tNxTHY4rqZm+P/2E5L8ZECPB8JTTDNjUcqJMvfl9Y8yMJaMGgCYf4pJOj+OEJ76oMGA==
+cyclops-infobook-html@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/cyclops-infobook-html/-/cyclops-infobook-html-1.1.2.tgz#e819f99bc17230771b99928a3fe175e7e9d25f2b"
+  integrity sha512-IRsAzCBRMQbD4gptUYFyY8QQmkw+Cezd9bxNSXbYchIMDMQPjoQDJ/QsOr0Lqsu8r1rJfR8oZwCWZwFHHiU4Pg==
   dependencies:
     "@types/mkdirp" "^0.5.2"
     "@types/ncp" "^2.0.1"
@@ -503,9 +503,9 @@ lazy-cache@^1.0.3:
   integrity sha1-odePw6UEdMuAhF07O24dpJpEbo4=
 
 lodash@^4.17.4:
-  version "4.17.14"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
-  integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 longest@^1.0.1:
   version "1.0.1"
