@@ -1,6 +1,4 @@
 import {ResourceHandler} from "cyclops-infobook-html";
-import {join} from "path";
-import {compileTemplate} from "pug";
 import {InfoBookAppendixHandlerDryingBasinRecipe} from "./InfoBookAppendixHandlerDryingBasinRecipe";
 
 /**
@@ -8,8 +6,12 @@ import {InfoBookAppendixHandlerDryingBasinRecipe} from "./InfoBookAppendixHandle
  */
 export class InfoBookAppendixHandlerMechanicalDryingBasinRecipe extends InfoBookAppendixHandlerDryingBasinRecipe {
 
-  constructor(resourceHandler: ResourceHandler, registriesPath: string) {
-    super(resourceHandler, registriesPath, 'mechanical_drying_basin');
+  constructor(resourceHandler: ResourceHandler, registriesPath: string, recipeOverrides: any) {
+    super(resourceHandler, registriesPath, recipeOverrides, 'integrateddynamics:mechanical_drying_basin');
+  }
+
+  protected getRecipeNameUnlocalized(): string {
+    return 'block.integrateddynamics.mechanical_drying_basin';
   }
 
 }

@@ -6,8 +6,8 @@ import {InfoBookAppendixHandlerDryingBasinRecipe} from "./appendix/InfoBookAppen
 import {InfoBookAppendixHandlerMechanicalDryingBasinRecipe} from "./appendix/InfoBookAppendixHandlerMechanicalDryingBasinRecipe";
 import {InfoBookAppendixHandlerMechanicalSqueezerRecipe} from "./appendix/InfoBookAppendixHandlerMechanicalSqueezerRecipe";
 import {InfoBookAppendixHandlerOperator} from "./appendix/InfoBookAppendixHandlerOperator";
-import {InfoBookAppendixHandlerSqueezerRecipe} from "./appendix/InfoBookAppendixHandlerSqueezerRecipe";
 import {InfoBookAppendixHandlerPartAspect} from "./appendix/InfoBookAppendixHandlerPartAspect";
+import {InfoBookAppendixHandlerSqueezerRecipe} from "./appendix/InfoBookAppendixHandlerSqueezerRecipe";
 
 /**
  * Infobook plugin for Integrated Dynamics.
@@ -17,14 +17,14 @@ export class InfobookPluginIntegratedDynamics implements IInfobookPlugin {
   public readonly assetsPath = __dirname + '/../assets/';
 
   public load(infoBookInitializer: InfoBookInitializer, resourceLoader: ResourceLoader, config: any): void {
-    infoBookInitializer.registerAppendixHandler('integrateddynamics:squeezer_recipe',
-      new InfoBookAppendixHandlerSqueezerRecipe(resourceLoader.getResourceHandler(), 'registries'));
-    infoBookInitializer.registerAppendixHandler('integrateddynamics:mechanical_squeezer_recipe',
-      new InfoBookAppendixHandlerMechanicalSqueezerRecipe(resourceLoader.getResourceHandler(), 'registries'));
-    infoBookInitializer.registerAppendixHandler('integrateddynamics:drying_basin_recipe',
-      new InfoBookAppendixHandlerDryingBasinRecipe(resourceLoader.getResourceHandler(), 'registries'));
-    infoBookInitializer.registerAppendixHandler('integrateddynamics:mechanical_drying_basin_recipe',
-      new InfoBookAppendixHandlerMechanicalDryingBasinRecipe(resourceLoader.getResourceHandler(), 'registries'));
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:squeezer',
+      new InfoBookAppendixHandlerSqueezerRecipe(resourceLoader.getResourceHandler(), 'registries', config.recipeOverrides));
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:mechanical_squeezer',
+      new InfoBookAppendixHandlerMechanicalSqueezerRecipe(resourceLoader.getResourceHandler(), 'registries', config.recipeOverrides));
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:drying_basin',
+      new InfoBookAppendixHandlerDryingBasinRecipe(resourceLoader.getResourceHandler(), 'registries', config.recipeOverrides));
+    infoBookInitializer.registerAppendixHandler('integrateddynamics:mechanical_drying_basin',
+      new InfoBookAppendixHandlerMechanicalDryingBasinRecipe(resourceLoader.getResourceHandler(), 'registries', config.recipeOverrides));
     const aspectHandler = new InfoBookAppendixHandlerAspect(resourceLoader.getResourceHandler(), 'registries');
     infoBookInitializer.registerAppendixHandler('integrateddynamics:aspect', aspectHandler);
     infoBookInitializer.registerAppendixHandler('integrateddynamics:operator',

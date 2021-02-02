@@ -33,7 +33,7 @@ export class InfoBookAppendixHandlerPartAspect implements IInfoBookAppendixHandl
   }
 
   public createAppendix(data: any, modId: string): IInfoAppendix {
-    const id = `parttype.parttypes.${modId}.${data._}.name`;
+    const id = data._;
     const partAspects = this.registryPartAspect[id];
     if (!partAspects) {
       throw new Error(`Could not find a part with aspects for id ${id}`);
@@ -42,7 +42,7 @@ export class InfoBookAppendixHandlerPartAspect implements IInfoBookAppendixHandl
 
     return {
       getName: (context) => this.resourceHandler.getTranslation(
-        'aspect.aspects.integrateddynamics.name', context.language),
+        'aspect.integrateddynamics.name', context.language),
       toHtml: (context: ISerializeContext, fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) => {
         return aspects.map((aspect) => this.aspectHandler.serializeAspect(aspect, context, serializer)).join('<hr />');
       },

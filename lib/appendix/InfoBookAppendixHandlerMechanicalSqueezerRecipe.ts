@@ -1,6 +1,4 @@
 import {ResourceHandler} from "cyclops-infobook-html";
-import {join} from "path";
-import {compileTemplate} from "pug";
 import {InfoBookAppendixHandlerSqueezerRecipe} from "./InfoBookAppendixHandlerSqueezerRecipe";
 
 /**
@@ -8,8 +6,12 @@ import {InfoBookAppendixHandlerSqueezerRecipe} from "./InfoBookAppendixHandlerSq
  */
 export class InfoBookAppendixHandlerMechanicalSqueezerRecipe extends InfoBookAppendixHandlerSqueezerRecipe {
 
-  constructor(resourceHandler: ResourceHandler, registriesPath: string) {
-    super(resourceHandler, registriesPath, 'mechanical_squeezer');
+  constructor(resourceHandler: ResourceHandler, registriesPath: string, recipeOverrides: any) {
+    super(resourceHandler, registriesPath, recipeOverrides, 'integrateddynamics:mechanical_squeezer');
+  }
+
+  protected getRecipeNameUnlocalized(): string {
+    return 'block.integrateddynamics.mechanical_squeezer';
   }
 
 }

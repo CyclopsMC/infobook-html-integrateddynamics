@@ -1,48 +1,48 @@
 {
-  "minecraft": "1.12.2",
-  "forge": "14.23.5.2838",
+  "minecraft": "1.16.4",
+  "forge": "35.1.4",
   "mods": [
     {
       "type": "curseforge",
       "project": "cyclops-core",
-      "artifact": "CyclopsCore-1.12.2",
-      "version": "1.5.0"
+      "artifact": "CyclopsCore-1.16.4",
+      "version": "1.11.1"
     },
     {
       "type": "curseforge",
       "project": "common-capabilities",
-      "artifact": "CommonCapabilities-1.12.2",
-      "version": "2.4.4"
+      "artifact": "CommonCapabilities-1.16.4",
+      "version": "2.5.5"
     },
     {
       "type": "curseforge",
       "project": "integrated-dynamics",
-      "artifact": "IntegratedDynamics-1.12.2",
-      "version": "1.1.0"
+      "artifact": "IntegratedDynamics-1.16.4",
+      "version": "1.4.2"
     },
     {
       "type": "curseforge",
       "project": "integrated-tunnels",
-      "artifact": "IntegratedTunnels-1.12.2",
-      "version": "1.6.10"
+      "artifact": "IntegratedTunnels-1.16.4",
+      "version": "1.6.16"
     },
     {
       "type": "curseforge",
       "project": "integrated-terminals",
-      "artifact": "IntegratedTerminals-1.12.2",
-      "version": "1.0.10"
-    },
-    {
-      "type": "curseforge",
-      "project": "integrated-rest",
-      "artifact": "IntegratedREST-1.12.2",
+      "artifact": "IntegratedTerminals-1.16.4",
       "version": "1.1.1"
     },
     {
       "type": "curseforge",
+      "project": "integrated-rest",
+      "artifact": "IntegratedREST-1.16.4",
+      "version": "1.1.2"
+    },
+    {
+      "type": "curseforge",
       "project": "integrated-crafting",
-      "artifact": "IntegratedCrafting-1.12.2",
-      "version": "1.0.8"
+      "artifact": "IntegratedCrafting-1.16.4",
+      "version": "1.0.11"
     }
   ]
 }
