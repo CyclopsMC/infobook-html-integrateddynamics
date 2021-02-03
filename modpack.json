@@ -3,34 +3,29 @@
   "forge": "35.1.4",
   "mods": [
     {
-      "type": "curseforge",
-      "project": "cyclops-core",
-      "artifact": "CyclopsCore-1.16.4",
-      "version": "1.11.1"
+      "type": "maven",
+      "artifact": "org.cyclops.cyclopscore:CyclopsCore:1.16.4-1.11.1-33",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     },
     {
-      "type": "curseforge",
-      "project": "common-capabilities",
-      "artifact": "CommonCapabilities-1.16.4",
-      "version": "2.5.5"
+      "type": "maven",
+      "artifact": "org.cyclops.commoncapabilities:CommonCapabilities:1.16.4-2.5.5-4",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     },
     {
-      "type": "curseforge",
-      "project": "integrated-dynamics",
-      "artifact": "IntegratedDynamics-1.16.4",
-      "version": "1.4.2"
+      "type": "maven",
+      "artifact": "org.cyclops.integrateddynamics:IntegratedDynamics:1.16.4-1.4.3-28",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     },
     {
-      "type": "curseforge",
-      "project": "integrated-tunnels",
-      "artifact": "IntegratedTunnels-1.16.4",
-      "version": "1.6.16"
+      "type": "maven",
+      "artifact": "org.cyclops.integratedtunnels:IntegratedTunnels:1.16.4-1.6.16-4",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     },
     {
-      "type": "curseforge",
-      "project": "integrated-terminals",
-      "artifact": "IntegratedTerminals-1.16.4",
-      "version": "1.1.1"
+      "type": "maven",
+      "artifact": "org.cyclops.integratedterminals:IntegratedTerminals:1.16.4-1.1.1-5",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     },
     {
       "type": "curseforge",
@@ -39,10 +34,9 @@
       "version": "1.1.2"
     },
     {
-      "type": "curseforge",
-      "project": "integrated-crafting",
-      "artifact": "IntegratedCrafting-1.16.4",
-      "version": "1.0.11"
+      "type": "maven",
+      "artifact": "org.cyclops.integratedcrafting:IntegratedCrafting:1.16.4-1.0.11-5",
+      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     }
   ]
 }
