@@ -1,7 +1,6 @@
 # Cyclops Infobook HTML - Integrated Dynamics
 
-[![Build Status](https://travis-ci.org/CyclopsMC/infobook-html-integrateddynamics.svg?branch=master)](https://travis-ci.org/CyclopsMC/infobook-html-integrateddynamics)
-[![Greenkeeper badge](https://badges.greenkeeper.io/CyclopsMC/infobook-html-integrateddynamics.svg)](https://greenkeeper.io/)
+[![Build Status](https://github.com/CyclopsMC/infobook-html-integrateddynamics/workflows/Build%20and%20Deploy/badge.svg)](https://integrateddynamics.rubensworks.net/book/)
 
 Output Integrated Dynamics infobooks as HTML.
 
