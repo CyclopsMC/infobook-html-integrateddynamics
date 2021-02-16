@@ -1,21 +1,24 @@
 {
-  "minecraft": "1.16.4",
-  "forge": "35.1.4",
+  "minecraft": "1.16.5",
+  "forge": "36.0.42",
   "mods": [
     {
-      "type": "maven",
-      "artifact": "org.cyclops.cyclopscore:CyclopsCore:1.16.4-1.11.1-33",
-      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+      "type": "curseforge",
+      "project": "cyclops-core",
+      "artifact": "CyclopsCore-1.16.5",
+      "version": "1.11.2"
     },
     {
-      "type": "maven",
-      "artifact": "org.cyclops.commoncapabilities:CommonCapabilities:1.16.4-2.5.5-4",
-      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+      "type": "curseforge",
+      "project": "common-capabilities",
+      "artifact": "CommonCapabilities-1.16.5",
+      "version": "2.5.6"
     },
     {
-      "type": "maven",
-      "artifact": "org.cyclops.integrateddynamics:IntegratedDynamics:1.16.4-1.4.3-28",
-      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+      "type": "curseforge",
+      "project": "integrated-dynamics",
+      "artifact": "IntegratedDynamics-1.16.5",
+      "version": "1.5.0"
     },
     {
       "type": "maven",
@@ -23,9 +26,10 @@
       "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
     },
     {
-      "type": "maven",
-      "artifact": "org.cyclops.integratedterminals:IntegratedTerminals:1.16.4-1.1.1-5",
-      "repo": "https://oss.jfrog.org/artifactory/simple/libs-release/"
+      "type": "curseforge",
+      "project": "integrated-terminals",
+      "artifact": "IntegratedTerminals-1.16.5",
+      "version": "1.1.2"
     },
     {
       "type": "curseforge",
