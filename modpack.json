@@ -6,31 +6,31 @@
       "type": "curseforge",
       "project": "cyclops-core",
       "artifact": "CyclopsCore-1.16.5",
-      "version": "1.11.2"
+      "version": "1.11.6"
     },
     {
       "type": "curseforge",
       "project": "common-capabilities",
       "artifact": "CommonCapabilities-1.16.5",
-      "version": "2.5.6"
+      "version": "2.7.0"
     },
     {
       "type": "curseforge",
       "project": "integrated-dynamics",
       "artifact": "IntegratedDynamics-1.16.5",
-      "version": "1.5.0"
+      "version": "1.8.0"
     },
     {
       "type": "curseforge",
       "project": "integrated-tunnels",
       "artifact": "IntegratedTunnels-1.16.5",
-      "version": "1.6.17"
+      "version": "1.8.0"
     },
     {
       "type": "curseforge",
       "project": "integrated-terminals",
       "artifact": "IntegratedTerminals-1.16.5",
-      "version": "1.1.2"
+      "version": "1.1.3"
     },
     {
       "type": "curseforge",
@@ -42,7 +42,7 @@
       "type": "curseforge",
       "project": "integrated-crafting",
       "artifact": "IntegratedCrafting-1.16.5",
-      "version": "1.0.12"
+      "version": "1.0.14"
     }
   ]
 }
