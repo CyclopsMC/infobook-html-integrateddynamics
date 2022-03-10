@@ -64,6 +64,7 @@
     "key.integratedterminals.terminal.tab.previous": "Shift + Tabb",
     "key.integratedterminals.terminal.craftinggrid.clearplayer": "C",
     "key.integratedterminals.terminal.craftinggrid.clearstorage": "Shift + C",
-    "key.integratedterminals.terminal.craftinggrid.balance": "B"
+    "key.integratedterminals.terminal.craftinggrid.balance": "B",
+    "key.integratedterminals.terminal.portable.open": "C"
   }
 }
