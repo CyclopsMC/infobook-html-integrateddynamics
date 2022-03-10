@@ -35,7 +35,7 @@
     {
       "type": "curseforge",
       "project": "integrated-rest",
-      "artifact": "IntegratedREST-1.16.4",
+      "artifact": "IntegratedREST-1.18.1",
       "version": "1.1.5"
     },
     {
