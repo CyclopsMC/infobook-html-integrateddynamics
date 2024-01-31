@@ -81,3 +81,7 @@
 .appendix .operator .operator-description::before {
     content: ': ';
 }
+
+.appendix .operator .operator-interact-name {
+    display: block;
+}
