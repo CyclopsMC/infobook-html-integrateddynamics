@@ -63,7 +63,15 @@ export class InfoBookAppendixHandlerOperator implements IInfoBookAppendixHandler
       input, this.resourceHandler, context, serializer));
     const output = InfoBookAppendixHandlerOperator.serializeValueType(
       operator.output, this.resourceHandler, context, serializer);
-    return this.templateOperator({ name, description, symbol, inputs, output });
+    const globalInteractName = this.resourceHandler
+      .getTranslation('gui.integrateddynamics.operator.globalname', context.language)
+      .replace('%s', operator.globalInteractName
+        + '(' + inputs.join(',&nbsp;') + ') &rarr; ' + output);
+    const scopedInteractName = inputs.length === 0 ? '' : this.resourceHandler
+      .getTranslation('gui.integrateddynamics.operator.localname', context.language)
+      .replace('%s', inputs[0] + '.' + operator.scopedInteractName
+        + '(' + inputs.slice(1).join(',&nbsp;') + ') &rarr; ' + output);
+    return this.templateOperator({ name, description, symbol, inputs, output, globalInteractName, scopedInteractName });
   }
 
 }
@@ -74,6 +82,8 @@ export interface IOperator {
   symbol: string;
   output: IValueType;
   inputs: IValueType[];
+  globalInteractName: string;
+  scopedInteractName: string;
 }
 
 export interface IValueType {
