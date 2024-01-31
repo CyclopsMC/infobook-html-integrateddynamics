@@ -1,48 +1,51 @@
 {
-  "minecraft": "1.18.1",
-  "forge": "39.0.5",
+  "minecraft": "1.19.2",
+  "forge": "43.0.8",
   "mods": [
     {
-      "type": "curseforge",
-      "project": "cyclops-core",
-      "artifact": "CyclopsCore-1.18.1",
-      "version": "1.13.1"
+      "type": "raw",
+      "name": "cyclopscore-1.19.2-1.18.11-399.jar",
+      "url": "https://www.dropbox.com/scl/fi/v9yv82de1eg92brik7kjl/cyclopscore-1.19.2-1.18.11-399.jar?rlkey=npqctwpc9pbzm5fumxsqg3j3o&dl=1"
     },
     {
       "type": "curseforge",
       "project": "common-capabilities",
-      "artifact": "CommonCapabilities-1.18.1",
-      "version": "2.8.2"
+      "artifact": "CommonCapabilities-1.19.2",
+      "version": "2.9.1"
     },
     {
-      "type": "curseforge",
-      "project": "integrated-dynamics",
-      "artifact": "IntegratedDynamics-1.18.1",
-      "version": "1.10.11"
+      "type": "raw",
+      "name": "integrateddynamics-1.19.2-1.20.2-693.jar",
+      "url": "https://www.dropbox.com/scl/fi/lw135i5l5ypsmp8zm5uqe/integrateddynamics-1.19.2-1.20.2-693.jar?rlkey=aeuj88lae8bo938pxfccom6qc&dl=1"
     },
     {
       "type": "curseforge",
       "project": "integrated-tunnels",
-      "artifact": "IntegratedTunnels-1.18.1",
-      "version": "1.8.11"
+      "artifact": "IntegratedTunnels-1.19.2",
+      "version": "1.8.23"
     },
     {
       "type": "curseforge",
       "project": "integrated-terminals",
-      "artifact": "IntegratedTerminals-1.18.1",
-      "version": "1.2.15"
+      "artifact": "IntegratedTerminals-1.19.2",
+      "version": "1.4.11"
     },
     {
       "type": "curseforge",
       "project": "integrated-rest",
-      "artifact": "IntegratedREST-1.18.1",
-      "version": "1.1.5"
+      "artifact": "IntegratedREST-1.19.2",
+      "version": "1.1.9"
     },
     {
       "type": "curseforge",
       "project": "integrated-crafting",
-      "artifact": "IntegratedCrafting-1.18.1",
-      "version": "1.0.21"
+      "artifact": "IntegratedCrafting-1.19.2",
+      "version": "1.1.6"
+    },
+    {
+      "type": "raw",
+      "name": "integratedscripting-1.19.2-1.0.0-61.jar",
+      "url": "https://www.dropbox.com/s/mbbikni5ieyttuq/integratedscripting-1.19.2-1.0.0-61.jar?dl=1"
     }
   ]
 }

@@ -40,6 +40,10 @@
       {
         "sectionsFile": "mod_assets/integratedrest/info/rest_info.xml",
         "modId": "integratedrest"
+      },
+      {
+        "sectionsFile": "mod_assets/integratedscripting/info/scripting_info.xml",
+        "modId": "integratedscripting"
       }
     ],
     "info_book.integrateddynamics.tutorials": [
@@ -54,6 +58,10 @@
       {
         "sectionsFile": "mod_assets/integratedterminals/info/terminals_tutorials.xml",
         "modId": "integratedterminals"
+      },
+      {
+        "sectionsFile": "mod_assets/integratedscripting/info/scripting_tutorials.xml",
+        "modId": "integratedscripting"
       }
     ]
   },
