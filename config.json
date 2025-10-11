@@ -44,6 +44,10 @@
       {
         "sectionsFile": "mod_assets/integratedscripting/info/scripting_info.xml",
         "modId": "integratedscripting"
+      },
+      {
+        "sectionsFile": "mod_assets/integratedmekanism/info/mekanism_info.xml",
+        "modId": "integratedmekanism"
       }
     ],
     "info_book.integrateddynamics.tutorials": [
@@ -62,6 +66,10 @@
       {
         "sectionsFile": "mod_assets/integratedscripting/info/scripting_tutorials.xml",
         "modId": "integratedscripting"
+      },
+      {
+        "sectionsFile": "mod_assets/integratedmekanism/info/mekanism_tutorials.xml",
+        "modId": "integratedmekanism"
       }
     ]
   },
@@ -74,5 +82,10 @@
     "key.integratedterminals.terminal.craftinggrid.clearstorage": "Shift + C",
     "key.integratedterminals.terminal.craftinggrid.balance": "B",
     "key.integratedterminals.terminal.portable.open": "C"
-  }
+  },
+  "excludedModLanguages": [
+      "minecraft",
+      "mekanism",
+      "mekanismgenerators"
+  ]
 }

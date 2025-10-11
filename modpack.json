@@ -1,54 +1,72 @@
 {
-  "minecraft": "1.21",
-  "neoforge": "21.0.115-beta",
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.210",
   "mods": [
     {
       "type": "maven",
-      "artifact": "curse.maven:cyclopscore-232758:5557556",
+      "artifact": "curse.maven:cyclopscore-232758:7076266",
       "repo": "https://cursemaven.com/",
-      "name": "CyclopsCore-1.21-neoforge-1.19.6.jar"
+      "name": "CyclopsCore-1.21.1-neoforge-1.27.0.jar"
     },
     {
       "type": "maven",
-      "artifact": "curse.maven:common-capabilities-247007:5536700",
+      "artifact": "curse.maven:common-capabilities-247007:7076241",
       "repo": "https://cursemaven.com/",
-      "name": "CommonCapabilities-1.21-neoforge-2.9.1.jar"
+      "name": "CommonCapabilities-1.21.1-neoforge-2.10.0.jar"
     },
     {
       "type": "maven",
-      "artifact": "curse.maven:integrated-dynamics-236307:5557558",
+      "artifact": "curse.maven:integrated-dynamics-236307:7093981",
       "repo": "https://cursemaven.com/",
-      "name": "IntegratedDynamics-1.21-neoforge-1.21.9.jar"
+      "name": "IntegratedDynamics-1.21.1-neoforge-1.28.1.jar"
     },
     {
       "type": "maven",
-      "artifact": "curse.maven:integrated-tunnels-251389:5550915",
+      "artifact": "curse.maven:integrated-tunnels-251389:7076261",
       "repo": "https://cursemaven.com/",
-      "name": "IntegratedTunnels-1.21-neoforge-1.8.26.jar"
+      "name": "IntegratedTunnels-1.21.1-neoforge-1.9.0.jar"
     },
     {
       "type": "maven",
-      "artifact": "curse.maven:integrated-terminals-295910:5557560",
+      "artifact": "curse.maven:integrated-terminals-295910:6992515",
       "repo": "https://cursemaven.com/",
-      "name": "IntegratedTerminals-1.21-neoforge-1.4.15.jar"
+      "name": "IntegratedTerminals-1.21.1-neoforge-1.6.16.jar"
     },
     {
       "type": "maven",
-      "artifact": "curse.maven:integrated-crafting-287357:5536708",
+      "artifact": "curse.maven:integrated-crafting-287357:7094308",
       "repo": "https://cursemaven.com/",
-      "name": "IntegratedCrafting-1.21-neoforge-1.1.7.jar"
+      "name": "IntegratedCrafting-1.21.1-neoforge-1.3.1.jar"
     },
     {
       "type": "maven",
-      "artifact": "curse.maven:integrated-rest-284332:5536709",
+      "artifact": "curse.maven:integrated-rest-284332:6636773",
       "repo": "https://cursemaven.com/",
-      "name": "IntegratedREST-1.21-neoforge-1.1.12.jar"
+      "name": "IntegratedREST-1.21.1-neoforge-1.1.15.jar"
     },
     {
       "type": "maven",
-      "artifact": "curse.maven:integrated-scripting-889785:5557561",
+      "artifact": "curse.maven:integrated-scripting-889785:7076270",
       "repo": "https://cursemaven.com/",
-      "name": "IntegratedScripting-1.21-neoforge-1.0.5.jar"
+      "name": "IntegratedScripting-1.21.1-neoforge-1.0.19.jar"
+    },
+    {
+      "type": "maven",
+      "artifact": "curse.maven:integrated-mekanism-1332544:7093862",
+      "repo": "https://cursemaven.com/",
+      "name": "IntegratedMekanism-1.21.1-neoforge-1.0.1.jar"
+    },
+    {
+      "type": "maven",
+      "artifact": "curse.maven:mekanism-268560:7017663",
+      "repo": "https://cursemaven.com/",
+      "name": "Mekanism-1.21.1-10.7.16.82.jar"
+    },
+    {
+      "type": "maven",
+      "artifact": "curse.maven:mekanism-generators-268566:7017666",
+      "repo": "https://cursemaven.com/",
+      "name": "MekanismGenerators-1.21.1-10.7.16.82.jar"
     }
   ]
 }
