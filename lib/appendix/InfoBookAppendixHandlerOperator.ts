@@ -48,7 +48,7 @@ export class InfoBookAppendixHandlerOperator implements IInfoBookAppendixHandler
     return {
       getName: (context) => this.resourceHandler.getTranslation(
         'operator.integrateddynamics', context.language),
-      toHtml: (context: ISerializeContext, fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) => {
+      toHtml: async (context: ISerializeContext, fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) => {
         return operators.map((operator) => this.serializeOperator(operator, context, serializer)).join('<hr />');
       },
     };

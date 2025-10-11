@@ -43,7 +43,7 @@ export class InfoBookAppendixHandlerPartAspect implements IInfoBookAppendixHandl
     return {
       getName: (context) => this.resourceHandler.getTranslation(
         'aspect.integrateddynamics.name', context.language),
-      toHtml: (context: ISerializeContext, fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) => {
+      toHtml: async (context: ISerializeContext, fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) => {
         return aspects.map((aspect) => this.aspectHandler.serializeAspect(aspect, context, serializer)).join('<hr />');
       },
     };

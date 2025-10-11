@@ -29,8 +29,8 @@ export class InfoBookAppendixHandlerSqueezerRecipe extends InfoBookAppendixHandl
     return 'block.integrateddynamics.squeezer';
   }
 
-  protected serializeRecipe(recipe: IRecipeSqueezer, context: ISerializeContext,
-                            fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) {
+  protected async serializeRecipe(recipe: IRecipeSqueezer, context: ISerializeContext,
+                                  fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) {
     // Input
     const input = recipe.input.map((item) => serializer.createItemDisplay(this.resourceHandler,
       context, fileWriter, item, true));
@@ -42,15 +42,15 @@ export class InfoBookAppendixHandlerSqueezerRecipe extends InfoBookAppendixHandl
       if ((<any> item).chance < 1) {
         annotation = (<any> item).chance;
       }
-      outputs.push(serializer.createItemDisplay(this.resourceHandler,
+      outputs.push(await serializer.createItemDisplay(this.resourceHandler,
         context, fileWriter, item, true, annotation));
     }
     if (recipe.output.fluid) {
-      outputs.push(serializer.createFluidDisplay(this.resourceHandler,
+      outputs.push(await serializer.createFluidDisplay(this.resourceHandler,
         context, fileWriter, recipe.output.fluid, true));
     }
 
-    const appendixIcon = serializer.createItemDisplay(this.resourceHandler,
+    const appendixIcon = await serializer.createItemDisplay(this.resourceHandler,
       context, fileWriter, { item: this.id }, false);
 
     // Duration
