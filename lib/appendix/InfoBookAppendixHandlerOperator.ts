@@ -35,9 +35,14 @@ export class InfoBookAppendixHandlerOperator implements IInfoBookAppendixHandler
 
   public createAppendix(data: any): IInfoAppendix {
     const id = data._;
-    const operators: IOperator[] = id === '*' ? Object.values(this.registry) : [this.registry[id]];
-    if (!operators.length) {
-      throw new Error(`Could not find the operator with id ${id}`);
+    let operators: IOperator[] = id === '*' ? Object.values(this.registry) : [this.registry[id]];
+    if (operators.length === 1 && !operators[0]) {
+      operators = [];
+      for (const operatorId in this.registry) {
+        if (operatorId.match(id)) {
+          operators.push(this.registry[operatorId]);
+        }
+      }
     }
 
     return {
