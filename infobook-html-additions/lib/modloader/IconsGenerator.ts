@@ -93,7 +93,7 @@ export class IconsGenerator {
       return;
     }
 
-    const url = `https://github.com/headlesshq/headlessmc/releases/download/${this.headlessMcVersion}/headlessmc-launcher.jar`;
+    const url = `https://github.com/headlesshq/headlessmc/releases/download/${this.headlessMcVersion}/headlessmc-launcher-${this.headlessMcVersion}.jar`;
     await this.downloadFile(url, jarPath);
     process.stdout.write(`Downloaded HeadlessMC to ${jarPath}\n`);
   }

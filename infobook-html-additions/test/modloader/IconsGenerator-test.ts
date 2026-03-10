@@ -52,6 +52,43 @@ describe('IconsGenerator', () => {
     });
   });
 
+  describe('downloadHeadlessMc', () => {
+    let tmpDir: string;
+    let generator: IconsGenerator;
+
+    beforeEach(() => {
+      tmpDir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'hmc-dl-'));
+      generator = new IconsGenerator({...BASE_ARGS, workDir: tmpDir, headlessMcVersion: '2.8.0'});
+    });
+
+    afterEach(() => {
+      removeTmpDir(tmpDir);
+    });
+
+    it('should use versioned filename in download URL', async () => {
+      const downloadedUrls: string[] = [];
+      jest.spyOn(generator, 'downloadFile').mockImplementation(async (url: string) => {
+        downloadedUrls.push(url);
+      });
+
+      await generator.downloadHeadlessMc();
+
+      expect(downloadedUrls).toHaveLength(1);
+      expect(downloadedUrls[0]).toContain('headlessmc-launcher-2.8.0.jar');
+      expect(downloadedUrls[0]).not.toContain('headlessmc-launcher.jar');
+    });
+
+    it('should skip download if jar already exists', async () => {
+      const jarPath = path.join(tmpDir, 'headlessmc-launcher.jar');
+      fs.writeFileSync(jarPath, 'fake jar');
+      const downloadFile = jest.spyOn(generator, 'downloadFile').mockImplementation(async () => { /* noop */ });
+
+      await generator.downloadHeadlessMc();
+
+      expect(downloadFile).not.toHaveBeenCalled();
+    });
+  });
+
   describe('writeHmcConfig', () => {
     let tmpDir: string;
     let generator: IconsGenerator;
