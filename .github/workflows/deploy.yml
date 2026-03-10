@@ -39,6 +39,9 @@ jobs:
           cp infobook-html-additions/test/modloader/IconsGenerator-test.ts infobook-html/test/modloader/IconsGenerator-test.ts
           jq '.bin["generate-icons"] = "bin/generate-icons.js"' infobook-html/package.json > /tmp/pkg-patched.json
           mv /tmp/pkg-patched.json infobook-html/package.json
+          jq '.compilerOptions.skipLibCheck = true' infobook-html/tsconfig.json > /tmp/tsconfig-patched.json
+          mv /tmp/tsconfig-patched.json infobook-html/tsconfig.json
+          sed -i 's/\.map(() => \[\])/\.map((): any[] => [])/' infobook-html/lib/infobook/appendix/InfoBookAppendixHandlerCraftingRecipe.ts
       - name: Build and link Infobook-html 🔗
         run: |
           cd infobook-html
@@ -47,10 +50,11 @@ jobs:
           npm link
       - name: Install and Build 🔧
         run: |
-          npm install
-          npm link cyclops-infobook-html
+          npm install --ignore-scripts
           npm run build
           npm run lint
+      - name: Link Infobook-html for icon generation 🔗
+        run: npm link cyclops-infobook-html
       - name: Download mods and generate metadata 📦
         run: npm run generate:metadata
       - name: Generate icons 🎨
