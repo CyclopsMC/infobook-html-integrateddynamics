@@ -1,6 +1,9 @@
 {
   "private": true,
   "name": "cyclops-infobook-html-integrateddynamics",
+  "workspaces": [
+    "infobook-html-additions"
+  ],
   "version": "1.0.0",
   "description": "Output Integrated Dynamics infobooks as HTML",
   "main": "index.js",
@@ -43,6 +46,7 @@
     "generate:html": "generate-cyclops-infobook-html config.json output"
   },
   "dependencies": {
+    "cyclops-infobook-html": "^5.0.0",
     "pug": "^2.0.4"
   }
 }

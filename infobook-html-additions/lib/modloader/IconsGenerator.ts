@@ -257,6 +257,15 @@ export class IconsGenerator {
                 sendCommand('gui');
                 transitionTo('checking_screen');
               }, 5000);
+            } else if (Date.now() - stateSettledAt > 300000 && !commandSent) {
+              // 5-minute timeout: if game output is not being relayed to HMC stdout
+              // (e.g. HMCLog4JAppender terminal is null), proceed assuming game is loaded
+              commandSent = true;
+              process.stdout.write('[HMC] Game load detection timeout, proceeding assuming game is loaded...\n');
+              setTimeout(() => {
+                sendCommand('gui');
+                transitionTo('checking_screen');
+              }, 5000);
             }
             break;
 
@@ -424,6 +433,7 @@ export class IconsGenerator {
     return output.includes('Mod loading complete') ||
       output.includes('[minecraft/Minecraft]: Loaded 0 advancements') ||
       output.includes('HMC Specifics initialized') ||
+      output.includes('HMC-Specifics initialized') ||
       (output.includes('[Render thread/INFO]') && output.includes('Loaded '));
   }
 

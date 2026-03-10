@@ -205,6 +205,10 @@ describe('IconsGenerator', () => {
       expect(generator.isGameFullyLoaded('[INFO] HMC Specifics initialized')).toBe(true);
     });
 
+    it('should return true when HMC-Specifics initialized (with hyphen, actual log format)', () => {
+      expect(generator.isGameFullyLoaded('[Render thread/INFO] [me.earth.headlessmc.mc.Initializer/]: HMC-Specifics initialized!')).toBe(true);
+    });
+
     it('should return true when Minecraft advancements message is present', () => {
       expect(generator.isGameFullyLoaded(
         '[Render thread/INFO] [minecraft/Minecraft]: Loaded 0 advancements'

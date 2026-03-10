@@ -1,0 +1,21 @@
+{
+  "name": "cyclops-infobook-html-additions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Icon generation additions for cyclops-infobook-html",
+  "bin": {
+    "generate-icons": "bin/generate-icons.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@types/minimist": "^1.2.0",
+    "@types/node": "^13.1.0",
+    "@types/node-fetch": "^2.5.0",
+    "minimist": "^1.2.0",
+    "node-fetch": "^2.6.0",
+    "typescript": "^5.0.0"
+  }
+}
