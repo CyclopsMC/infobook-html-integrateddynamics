@@ -50,11 +50,10 @@ jobs:
           npm link
       - name: Install and Build 🔧
         run: |
-          npm install --ignore-scripts
+          npm install --legacy-peer-deps --ignore-scripts
+          npm link cyclops-infobook-html --legacy-peer-deps
           npm run build
           npm run lint
-      - name: Link Infobook-html for icon generation 🔗
-        run: npm link cyclops-infobook-html
       - name: Download mods and generate metadata 📦
         run: npm run generate:metadata
       - name: Generate icons 🎨
