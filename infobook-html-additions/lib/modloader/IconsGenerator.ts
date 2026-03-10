@@ -198,6 +198,8 @@ export class IconsGenerator {
     return new Promise<void>((resolve, reject) => {
       const proc = spawn('java', [
         `-Dhmc.mcdir=${join(this.workDir, IconsGenerator.HMC_GAME_SUBDIR)}`,
+        // Tell HeadlessMC that Xvfb is in use so it skips offline headless checks
+        '-Dhmc.check.xvfb=true',
         '-jar', jarPath,
       ], {
         cwd: this.workDir,
@@ -276,7 +278,7 @@ export class IconsGenerator {
               sendCommand('offline true');
               // Allow a moment for offline mode to register
               setTimeout(() => {
-                sendCommand(`launch neoforge:${this.minecraftVersion} -commands -offline`);
+                sendCommand(`launch neoforge:${this.minecraftVersion} -offline --jvm "-Djava.awt.headless=true"`);
                 transitionTo('game_launching');
               }, 1000);
             }
