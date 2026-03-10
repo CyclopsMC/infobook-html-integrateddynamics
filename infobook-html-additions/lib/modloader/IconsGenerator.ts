@@ -276,7 +276,7 @@ export class IconsGenerator {
               sendCommand('offline true');
               // Allow a moment for offline mode to register
               setTimeout(() => {
-                sendCommand(`launch neoforge:${this.minecraftVersion} -lwjgl -commands -offline`);
+                sendCommand(`launch neoforge:${this.minecraftVersion} -commands -offline`);
                 transitionTo('game_launching');
               }, 1000);
             }
