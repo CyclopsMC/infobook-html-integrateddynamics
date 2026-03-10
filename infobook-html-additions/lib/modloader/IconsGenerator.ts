@@ -211,6 +211,11 @@ export class IconsGenerator {
       });
 
       let outputBuffer = '';
+      // Per-state buffer: cleared on every state transition, so checks only match
+      // output produced AFTER entering the current state (avoids stale matches).
+      let stateBuffer = '';
+      // Track the most recently observed screen name from HeadlessMC `gui` output.
+      let lastKnownScreen = '';
       let state: IGameState = 'waiting_for_prompt';
       let stateSettledAt: number = Date.now();
       let commandSent = false;
@@ -238,14 +243,22 @@ export class IconsGenerator {
           state = newState;
           stateSettledAt = Date.now();
           commandSent = false;
+          stateBuffer = ''; // reset per-state buffer on every transition
         }
       };
 
       const handleOutput = (chunk: string): void => {
         outputBuffer += chunk;
-        // Keep buffer size manageable
+        stateBuffer += chunk;
+        // Keep global buffer size manageable
         if (outputBuffer.length > 100000) {
           outputBuffer = outputBuffer.slice(outputBuffer.length - 20000);
+        }
+        // Track the current screen from each gui output chunk
+        const screenMatch = chunk.match(/^Screen:\s*(.+)$/m);
+        if (screenMatch) {
+          lastKnownScreen = screenMatch[1].trim();
+          process.stdout.write(`[HMC] Current screen: ${lastKnownScreen}\n`);
         }
 
         switch (state) {
@@ -291,23 +304,24 @@ export class IconsGenerator {
             break;
 
           case 'checking_screen':
-            if (outputBuffer.includes('TitleScreen') && !commandSent) {
+            // Use lastKnownScreen (from the most recent `gui` output) to avoid acting on
+            // stale screen names that appeared earlier in the accumulated outputBuffer.
+            if (lastKnownScreen.includes('TitleScreen') && !commandSent) {
               commandSent = true;
               clickByText('Singleplayer');
-              // After click, poll gui to detect when we reach the world selection screen
-              setTimeout(() => { commandSent = false; }, 3000);
-            } else if ((outputBuffer.includes('WorldSelectionScreen') ||
-                        outputBuffer.includes('SelectWorldScreen')) && !commandSent) {
+              transitionTo('navigating_singleplayer');
+            } else if ((lastKnownScreen.includes('SelectWorldScreen') ||
+                        lastKnownScreen.includes('WorldSelectionScreen')) && !commandSent) {
               // World selection screen - click Create New World by numeric ID
               commandSent = true;
               clickByText('Create New World');
               transitionTo('navigating_singleplayer');
-            } else if (outputBuffer.includes('CreateWorldScreen') && !commandSent) {
+            } else if (lastKnownScreen.includes('CreateWorldScreen') && !commandSent) {
               // World creation settings screen - confirm by clicking Create New World
               commandSent = true;
               clickByText('Create New World');
               transitionTo('creating_world');
-            } else if (outputBuffer.includes("Couldn't find command for '[gui]'") && !commandSent) {
+            } else if (stateBuffer.includes("Couldn't find command for '[gui]'") && !commandSent) {
               // gui not yet recognized; hmc-specifics may still be initializing - retry
               commandSent = true;
               setTimeout(() => {
@@ -325,18 +339,28 @@ export class IconsGenerator {
             break;
 
           case 'navigating_singleplayer':
-            // After clicking Create New World, poll until world creation starts
-            if ((outputBuffer.includes('CreateWorldScreen') ||
-                 outputBuffer.includes('logged in') ||
-                 outputBuffer.includes('not displaying a Gui')) && !commandSent) {
+            // Poll gui to detect which screen we're on after clicking Singleplayer.
+            // Use lastKnownScreen (from most recent gui output) to avoid stale matches.
+            if (lastKnownScreen.includes('CreateWorldScreen') && !commandSent) {
+              // World creation settings screen - confirm by clicking Create New World
               commandSent = true;
-              if (outputBuffer.includes('CreateWorldScreen')) {
-                // World creation dialog appeared - confirm
-                clickByText('Create New World');
-              }
+              clickByText('Create New World');
               transitionTo('creating_world');
-            } else if (Date.now() - stateSettledAt > 30000 && !commandSent) {
-              // Fallback: check current GUI
+            } else if ((lastKnownScreen.includes('SelectWorldScreen') ||
+                        lastKnownScreen.includes('WorldSelectionScreen')) && !commandSent) {
+              // World selection list - click Create New World, then poll to detect CreateWorldScreen
+              commandSent = true;
+              clickByText('Create New World');
+              setTimeout(() => { commandSent = false; }, 3000);
+            } else if ((stateBuffer.includes('logged in') || stateBuffer.includes('not displaying a Gui')) && !commandSent) {
+              // World already loaded (e.g. existing world auto-loaded)
+              commandSent = true;
+              setTimeout(() => {
+                sendCommand(`/ iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
+                transitionTo('exporting_icons');
+              }, 3000);
+            } else if (Date.now() - stateSettledAt > 60000 && !commandSent) {
+              // Fallback: re-check current GUI
               commandSent = true;
               sendCommand('gui');
               transitionTo('checking_screen');
@@ -352,9 +376,10 @@ export class IconsGenerator {
 
           case 'creating_world':
             // Wait for world to load - look for "logged in" or "not displaying a Gui"
-            if ((outputBuffer.includes('logged in') || outputBuffer.includes('not displaying a Gui')) && !commandSent) {
+            // Use stateBuffer (cleared on transition) to avoid matching text from earlier states.
+            if ((stateBuffer.includes('logged in') || stateBuffer.includes('not displaying a Gui')) && !commandSent) {
               commandSent = true;
-              // Wait for world to fully initialize
+              // Wait for world to fully initialize before triggering export
               setTimeout(() => {
                 sendCommand(`/ iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
                 transitionTo('exporting_icons');
@@ -368,23 +393,26 @@ export class IconsGenerator {
             break;
 
           case 'exporting_icons':
-            // Wait for export to complete - IconExporter logs export progress
-            if ((outputBuffer.includes('icon-exports') || outputBuffer.includes('Exported') ||
-                outputBuffer.includes('iconexporter') || outputBuffer.includes('export complete')) && !commandSent) {
-              // Give it extra time to finish writing all files
-              setTimeout(() => {
-                if (!commandSent) {
-                  commandSent = true;
+            // Use stateBuffer (cleared on transition) so early startup '[iconexporter] version check'
+            // lines in the global outputBuffer don't fire this prematurely.
+            // Set commandSent immediately to prevent queuing multiple quit timers.
+            if (!commandSent) {
+              if (stateBuffer.includes('icon-exports') || stateBuffer.includes('Exported ') ||
+                  stateBuffer.includes('export complete')) {
+                // Export completion detected - wait a moment for files to flush, then quit
+                commandSent = true;
+                process.stdout.write('[HMC] Icon export completion detected, quitting in 5s...\n');
+                setTimeout(() => {
                   sendCommand('quit');
                   transitionTo('quitting');
-                }
-              }, 10000);
-            } else if (Date.now() - stateSettledAt > 120000 && !commandSent) {
-              // Timeout - try to quit anyway
-              commandSent = true;
-              process.stdout.write('[HMC] Warning: icon export may not have completed, quitting...\n');
-              sendCommand('quit');
-              transitionTo('quitting');
+                }, 5000);
+              } else if (Date.now() - stateSettledAt > 120000) {
+                // Timeout - quit anyway
+                commandSent = true;
+                process.stdout.write('[HMC] Warning: icon export may not have completed, quitting...\n');
+                sendCommand('quit');
+                transitionTo('quitting');
+              }
             }
             break;
 
