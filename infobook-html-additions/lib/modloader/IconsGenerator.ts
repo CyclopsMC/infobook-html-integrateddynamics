@@ -53,7 +53,7 @@ export class IconsGenerator {
     this.iconExporterArtifact = args.iconExporterArtifact || `iconexporter-${args.minecraftVersion}-neoforge`;
     this.iconExporterVersion = args.iconExporterVersion || '1.4.0-174';
     this.headlessMcVersion = args.headlessMcVersion || '2.8.0';
-    this.launchTimeoutMs = args.launchTimeoutMs || (45 * 60 * 1000); // 45 minutes
+    this.launchTimeoutMs = args.launchTimeoutMs || (15 * 60 * 1000); // 15 minutes
   }
 
   /**
