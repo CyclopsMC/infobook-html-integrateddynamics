@@ -272,12 +272,19 @@ export class IconsGenerator {
                 sendCommand('gui');
                 commandSent = false;
               }, 2000);
+            } else if (outputBuffer.includes("Couldn't find command for '[gui]'") && !commandSent) {
+              // gui not yet recognized; hmc-specifics may still be initializing - retry
+              commandSent = true;
+              setTimeout(() => {
+                sendCommand('gui');
+                commandSent = false;
+              }, 5000);
             } else if (Date.now() - stateSettledAt > 30000 && !commandSent) {
               // Timeout - try gui again
               commandSent = true;
               setTimeout(() => {
                 sendCommand('gui');
-                transitionTo('checking_screen');
+                commandSent = false;
               }, 2000);
             }
             break;

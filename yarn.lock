@@ -227,28 +227,6 @@ cross-spawn@^5.0.1:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-"cyclops-infobook-html@file:../../../../../tmp/Infobook-html":
-  version "5.0.0"
-  resolved "file:../../../../../tmp/Infobook-html"
-  dependencies:
-    "@types/mkdirp" "^0.5.2"
-    "@types/ncp" "^2.0.1"
-    "@types/node" "^13.1.0"
-    "@types/node-fetch" "^2.5.0"
-    "@types/pug" "^2.0.4"
-    "@types/rimraf" "^3.0.0"
-    "@types/xml2js" "^0.4.4"
-    "@types/yauzl" "^2.9.1"
-    minimist "^1.2.0"
-    mkdirp "^0.5.1"
-    mvn-artifact-download "^5.0.0"
-    ncp "^2.0.0"
-    node-fetch "^2.6.0"
-    pug "^3.0.0"
-    rimraf "^3.0.0"
-    xml2js "^0.4.19"
-    yauzl "^2.10.0"
-
 decamelize@^1.0.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/decamelize/-/decamelize-1.2.0.tgz"
