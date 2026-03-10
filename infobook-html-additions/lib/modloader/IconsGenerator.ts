@@ -410,7 +410,7 @@ export class IconsGenerator {
     return output.includes('Mod loading complete') ||
       output.includes('[minecraft/Minecraft]: Loaded 0 advancements') ||
       output.includes('HMC Specifics initialized') ||
-      output.includes('[Render thread/INFO]') && output.includes('Loaded ');
+      (output.includes('[Render thread/INFO]') && output.includes('Loaded '));
   }
 
   /**
@@ -427,9 +427,9 @@ export class IconsGenerator {
       throw new Error(`Failed to download from ${url}: ${response.status} ${response.statusText}`);
     }
 
-    const dir = join(destPath, '..');
-    if (!fs.existsSync(dir)) {
-      await fs.promises.mkdir(dir, { recursive: true });
+    const parentDir = join(destPath, '..');
+    if (!fs.existsSync(parentDir)) {
+      await fs.promises.mkdir(parentDir, { recursive: true });
     }
 
     await new Promise<void>((resolve, reject) => {

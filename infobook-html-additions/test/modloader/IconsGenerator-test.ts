@@ -1,3 +1,4 @@
+import {execSync} from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 import {IconsGenerator, IIconsGeneratorArgs} from "../../lib/modloader/IconsGenerator";
@@ -15,7 +16,6 @@ const BASE_ARGS: IIconsGeneratorArgs = {
 
 function removeTmpDir(dir: string) {
   if (fs.existsSync(dir)) {
-    const { execSync } = require('child_process');
     execSync(`rm -rf "${dir}"`);
   }
 }

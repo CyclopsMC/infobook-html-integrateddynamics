@@ -37,12 +37,8 @@ jobs:
           cp infobook-html-additions/lib/modloader/IconsGenerator.ts infobook-html/lib/modloader/IconsGenerator.ts
           mkdir -p infobook-html/test/modloader
           cp infobook-html-additions/test/modloader/IconsGenerator-test.ts infobook-html/test/modloader/IconsGenerator-test.ts
-          node -e "
-            const pkg = require('./infobook-html/package.json');
-            pkg.bin = pkg.bin || {};
-            pkg.bin['generate-icons'] = 'bin/generate-icons.js';
-            require('fs').writeFileSync('./infobook-html/package.json', JSON.stringify(pkg, null, 2) + '\n');
-          "
+          jq '.bin["generate-icons"] = "bin/generate-icons.js"' infobook-html/package.json > /tmp/pkg-patched.json
+          mv /tmp/pkg-patched.json infobook-html/package.json
       - name: Build and link Infobook-html 🔗
         run: |
           cd infobook-html
