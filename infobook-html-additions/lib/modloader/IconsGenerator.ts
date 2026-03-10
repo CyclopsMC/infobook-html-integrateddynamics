@@ -17,6 +17,7 @@ export class IconsGenerator {
   private static readonly HMC_CONFIG_SUBDIR = 'HeadlessMC';
   private static readonly ICON_EXPORT_SUBDIR = 'icon-exports-x64';
   private static readonly DEFAULT_ICON_SIZE = 64;
+  private static readonly HMC_SPECIFICS_REPO = 'headlesshq/hmc-specifics';
 
   private readonly modsDir: string;
   private readonly iconsDir: string;
@@ -153,6 +154,14 @@ export class IconsGenerator {
       process.stdout.write('Added IconExporter to mods directory\n');
     }
 
+    // Download hmc-specifics if not already present (avoids relying on HeadlessMC's
+    // GitHub API lookup which may hit rate limits in CI environments)
+    const existingMods = await fs.promises.readdir(modsDir);
+    const hasHmcSpecifics = existingMods.some((f) => f.startsWith('hmc-specifics-'));
+    if (!hasHmcSpecifics) {
+      await this.downloadHmcSpecifics(modsDir);
+    }
+
     // Write options.txt to disable accessibility screen and pauseOnLostFocus
     const optionsPath = join(gameDir, 'options.txt');
     if (!fs.existsSync(optionsPath)) {
@@ -211,6 +220,18 @@ export class IconsGenerator {
         proc.stdin.write(command + '\n');
       };
 
+      // Click a button by its text label, resolving to numeric ID from the last gui output.
+      // HeadlessMC's click command requires the numeric id, not button text.
+      const clickByText = (buttonText: string): void => {
+        const id = this.findButtonIdByText(outputBuffer, buttonText);
+        if (id !== null) {
+          sendCommand(`click ${id}`);
+        } else {
+          process.stdout.write(`[HMC] Warning: button "${buttonText}" not found in gui output, trying text fallback\n`);
+          sendCommand(`click ${buttonText}`);
+        }
+      };
+
       const transitionTo = (newState: IGameState): void => {
         if (state !== newState) {
           process.stdout.write(`[HMC] State: ${state} -> ${newState}\n`);
@@ -242,7 +263,7 @@ export class IconsGenerator {
               sendCommand('offline true');
               // Allow a moment for offline mode to register
               setTimeout(() => {
-                sendCommand(`launch neoforge:${this.minecraftVersion} -lwjgl -commands -specifics -offline`);
+                sendCommand(`launch neoforge:${this.minecraftVersion} -lwjgl -commands -offline`);
                 transitionTo('game_launching');
               }, 1000);
             }
@@ -257,7 +278,7 @@ export class IconsGenerator {
                 sendCommand('gui');
                 transitionTo('checking_screen');
               }, 5000);
-            } else if (Date.now() - stateSettledAt > 300000 && !commandSent) {
+            } else if (Date.now() - stateSettledAt > 120000 && !commandSent) {
               // 5-minute timeout: if game output is not being relayed to HMC stdout
               // (e.g. HMCLog4JAppender terminal is null), proceed assuming game is loaded
               commandSent = true;
@@ -272,15 +293,20 @@ export class IconsGenerator {
           case 'checking_screen':
             if (outputBuffer.includes('TitleScreen') && !commandSent) {
               commandSent = true;
-              sendCommand('click Singleplayer');
-              transitionTo('navigating_singleplayer');
-            } else if (outputBuffer.includes('Screen:') && !commandSent) {
-              // Some other screen - check again
+              clickByText('Singleplayer');
+              // After click, poll gui to detect when we reach the world selection screen
+              setTimeout(() => { commandSent = false; }, 3000);
+            } else if ((outputBuffer.includes('WorldSelectionScreen') ||
+                        outputBuffer.includes('SelectWorldScreen')) && !commandSent) {
+              // World selection screen - click Create New World by numeric ID
               commandSent = true;
-              setTimeout(() => {
-                sendCommand('gui');
-                commandSent = false;
-              }, 2000);
+              clickByText('Create New World');
+              transitionTo('navigating_singleplayer');
+            } else if (outputBuffer.includes('CreateWorldScreen') && !commandSent) {
+              // World creation settings screen - confirm by clicking Create New World
+              commandSent = true;
+              clickByText('Create New World');
+              transitionTo('creating_world');
             } else if (outputBuffer.includes("Couldn't find command for '[gui]'") && !commandSent) {
               // gui not yet recognized; hmc-specifics may still be initializing - retry
               commandSent = true;
@@ -288,8 +314,8 @@ export class IconsGenerator {
                 sendCommand('gui');
                 commandSent = false;
               }, 5000);
-            } else if (Date.now() - stateSettledAt > 30000 && !commandSent) {
-              // Timeout - try gui again
+            } else if (!commandSent) {
+              // Poll for screen changes by sending gui periodically
               commandSent = true;
               setTimeout(() => {
                 sendCommand('gui');
@@ -299,25 +325,28 @@ export class IconsGenerator {
             break;
 
           case 'navigating_singleplayer':
-            if (outputBuffer.includes('CreateWorldScreen') && !commandSent) {
-              // Create a new world
+            // After clicking Create New World, poll until world creation starts
+            if ((outputBuffer.includes('CreateWorldScreen') ||
+                 outputBuffer.includes('logged in') ||
+                 outputBuffer.includes('not displaying a Gui')) && !commandSent) {
               commandSent = true;
-              sendCommand('click "Create New World"');
+              if (outputBuffer.includes('CreateWorldScreen')) {
+                // World creation dialog appeared - confirm
+                clickByText('Create New World');
+              }
               transitionTo('creating_world');
-            } else if (outputBuffer.includes('WorldSelectionScreen') && !commandSent) {
-              // Try to create a new world from world selection screen
-              commandSent = true;
-              sendCommand('click "Create New World"');
-              transitionTo('creating_world');
-            } else if (outputBuffer.includes('SelectWorldScreen') && !commandSent) {
-              commandSent = true;
-              sendCommand('click "Create New World"');
-              transitionTo('creating_world');
-            } else if (Date.now() - stateSettledAt > 20000 && !commandSent) {
+            } else if (Date.now() - stateSettledAt > 30000 && !commandSent) {
               // Fallback: check current GUI
               commandSent = true;
               sendCommand('gui');
               transitionTo('checking_screen');
+            } else if (!commandSent) {
+              // Poll for screen change
+              commandSent = true;
+              setTimeout(() => {
+                sendCommand('gui');
+                commandSent = false;
+              }, 2000);
             }
             break;
 
@@ -426,6 +455,25 @@ export class IconsGenerator {
   }
 
   /**
+   * Parse the HeadlessMC `gui` command output and find the numeric button ID for a given
+   * button text label. HeadlessMC's `click` command requires a numeric id, not the text.
+   * The gui table format is:
+   *   id   text                    x    y    w    h    on   type
+   *   0    Multiplayer             140  123  200  20   1    Button
+   *   1    Singleplayer            140  99   200  20   1    Button
+   * Columns are separated by two or more spaces.
+   */
+  public findButtonIdByText(guiOutput: string, buttonText: string): number | null {
+    for (const line of guiOutput.split('\n')) {
+      const cols = line.trim().split(/\s{2,}/);
+      if (cols.length >= 2 && /^\d+$/.test(cols[0]) && cols[1].trim() === buttonText) {
+        return parseInt(cols[0], 10);
+      }
+    }
+    return null;
+  }
+
+  /**
    * Determine if the Minecraft game has fully loaded based on log output.
    */
   public isGameFullyLoaded(output: string): boolean {
@@ -445,6 +493,34 @@ export class IconsGenerator {
   public isHeadlessMcReady(output: string): boolean {
     return output.includes('id   name   parent') ||
       output.includes('DefaultCommandLineProvider');
+  }
+
+  /**
+   * Download the hmc-specifics mod from GitHub Releases into the given mods directory.
+   * This avoids relying on HeadlessMC's built-in `-specifics` auto-download which checks
+   * the GitHub API without authentication and can hit rate limits.
+   */
+  public async downloadHmcSpecifics(modsDir: string): Promise<void> {
+    process.stdout.write('Downloading hmc-specifics...\n');
+    const headers: Record<string, string> = {};
+    if (this.githubToken) {
+      headers['Authorization'] = `token ${this.githubToken}`;
+    }
+    const apiUrl = `https://api.github.com/repos/${IconsGenerator.HMC_SPECIFICS_REPO}/releases/latest`;
+    const apiResponse = await fetch(apiUrl, { headers });
+    if (!apiResponse.ok) {
+      throw new Error(`Failed to fetch hmc-specifics release info: ${apiResponse.status} ${apiResponse.statusText}`);
+    }
+    const release: any = await apiResponse.json();
+    const asset = (release.assets as any[]).find(
+      (a: any) => a.name.includes(this.minecraftVersion) && a.name.includes('neoforge'),
+    );
+    if (!asset) {
+      throw new Error(`Could not find hmc-specifics asset for MC ${this.minecraftVersion} in release ${release.tag_name}`);
+    }
+    const destPath = join(modsDir, asset.name);
+    await this.downloadFile(asset.browser_download_url, destPath);
+    process.stdout.write(`Downloaded hmc-specifics to ${destPath}\n`);
   }
 
   /**
