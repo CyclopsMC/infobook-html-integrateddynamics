@@ -53,7 +53,7 @@ export class IconsGenerator {
     this.iconExporterArtifact = args.iconExporterArtifact || `iconexporter-${args.minecraftVersion}-neoforge`;
     this.iconExporterVersion = args.iconExporterVersion || '1.4.0-174';
     this.headlessMcVersion = args.headlessMcVersion || '2.8.0';
-    this.launchTimeoutMs = args.launchTimeoutMs || (30 * 60 * 1000); // 30 minutes
+    this.launchTimeoutMs = args.launchTimeoutMs || (45 * 60 * 1000); // 45 minutes
   }
 
   /**
@@ -356,7 +356,7 @@ export class IconsGenerator {
               // World already loaded (e.g. existing world auto-loaded)
               commandSent = true;
               setTimeout(() => {
-                sendCommand(`/ iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
+                sendCommand(`/iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
                 transitionTo('exporting_icons');
               }, 3000);
             } else if (Date.now() - stateSettledAt > 60000 && !commandSent) {
@@ -381,13 +381,13 @@ export class IconsGenerator {
               commandSent = true;
               // Wait for world to fully initialize before triggering export
               setTimeout(() => {
-                sendCommand(`/ iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
+                sendCommand(`/iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
                 transitionTo('exporting_icons');
               }, 3000);
             } else if (Date.now() - stateSettledAt > 120000 && !commandSent) {
               // Timeout waiting for world - try to proceed anyway
               commandSent = true;
-              sendCommand(`/ iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
+              sendCommand(`/iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
               transitionTo('exporting_icons');
             }
             break;
@@ -397,8 +397,8 @@ export class IconsGenerator {
             // lines in the global outputBuffer don't fire this prematurely.
             // Set commandSent immediately to prevent queuing multiple quit timers.
             if (!commandSent) {
-              if (stateBuffer.includes('icon-exports') || stateBuffer.includes('Exported ') ||
-                  stateBuffer.includes('export complete')) {
+              if (stateBuffer.includes('Finished exporting') || stateBuffer.includes('icon-exports') ||
+                  stateBuffer.includes('Exported ') || stateBuffer.includes('export complete')) {
                 // Export completion detected - wait a moment for files to flush, then quit
                 commandSent = true;
                 process.stdout.write('[HMC] Icon export completion detected, quitting in 5s...\n');
@@ -406,7 +406,7 @@ export class IconsGenerator {
                   sendCommand('quit');
                   transitionTo('quitting');
                 }, 5000);
-              } else if (Date.now() - stateSettledAt > 120000) {
+              } else if (Date.now() - stateSettledAt > 1200000) { // 20 minutes
                 // Timeout - quit anyway
                 commandSent = true;
                 process.stdout.write('[HMC] Warning: icon export may not have completed, quitting...\n');
