@@ -5,20 +5,64 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - name: Checkout Infobook-html 📚
+        uses: actions/checkout@v4
+        with:
+          repository: CyclopsMC/Infobook-html
+          path: infobook-html
       - name: Setup Java ☕
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
           java-version: 21
-          java-package: jdk
+          distribution: temurin
+      - name: Setup Node.js 🟢
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Cache Minecraft server files 💾
+        uses: actions/cache@v4
+        with:
+          path: |
+            server
+            headlessmc/game
+          key: minecraft-${{ hashFiles('modpack.json') }}
+          restore-keys: |
+            minecraft-
+      - name: Apply icon generation script to Infobook-html 🔧
+        run: |
+          cp infobook-html-additions/bin/generate-icons.ts infobook-html/bin/generate-icons.ts
+          cp infobook-html-additions/lib/modloader/IconsGenerator.ts infobook-html/lib/modloader/IconsGenerator.ts
+          mkdir -p infobook-html/test/modloader
+          cp infobook-html-additions/test/modloader/IconsGenerator-test.ts infobook-html/test/modloader/IconsGenerator-test.ts
+          node -e "
+            const pkg = require('./infobook-html/package.json');
+            pkg.bin = pkg.bin || {};
+            pkg.bin['generate-icons'] = 'bin/generate-icons.js';
+            require('fs').writeFileSync('./infobook-html/package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+      - name: Build and link Infobook-html 🔗
+        run: |
+          cd infobook-html
+          npm install --legacy-peer-deps --ignore-scripts
+          npm run build
+          npm link
       - name: Install and Build 🔧
         run: |
           npm install
+          npm link cyclops-infobook-html
           npm run build
           npm run lint
-          npm run generate
+      - name: Download mods and generate metadata 📦
+        run: npm run generate:metadata
+      - name: Generate icons 🎨
+        run: npm run generate:icons
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate HTML 📄
+        run: npm run generate:html
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
