@@ -216,6 +216,34 @@ describe('IconsGenerator', () => {
     });
   });
 
+  describe('isHeadlessMcReady', () => {
+    let generator: IconsGenerator;
+
+    beforeEach(() => {
+      generator = new IconsGenerator(BASE_ARGS);
+    });
+
+    it('should return false for empty output', () => {
+      expect(generator.isHeadlessMcReady('')).toBe(false);
+    });
+
+    it('should return true when HeadlessMC version table header is present', () => {
+      expect(generator.isHeadlessMcReady('id   name   parent\n-    -      -\n')).toBe(true);
+    });
+
+    it('should return true when DefaultCommandLineProvider warning is present', () => {
+      expect(generator.isHeadlessMcReady(
+        '[main/WARNING] [DefaultCommandLineProvider]: Your terminal cannot hide passwords!'
+      )).toBe(true);
+    });
+
+    it('should return false for unrelated HeadlessMC startup output', () => {
+      expect(generator.isHeadlessMcReady(
+        '[main/WARNING] [Main]: Not running from the headlessmc-launcher-wrapper. No plugin support and in-memory launching.'
+      )).toBe(false);
+    });
+  });
+
   describe('copyIcons', () => {
     let tmpDir: string;
     let generator: IconsGenerator;

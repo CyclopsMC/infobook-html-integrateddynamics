@@ -229,7 +229,14 @@ export class IconsGenerator {
 
         switch (state) {
           case 'waiting_for_prompt':
-            if (outputBuffer.includes('>') && !commandSent) {
+            // HeadlessMC in non-TTY mode does not print a '>' prompt character.
+            // Detect readiness from its actual startup output (version table header or
+            // the DefaultCommandLineProvider warning printed just before it waits for input).
+            // A time-based fallback ensures we never hang indefinitely.
+            if (!commandSent && (
+              this.isHeadlessMcReady(outputBuffer) ||
+              Date.now() - stateSettledAt > 10000
+            )) {
               // HeadlessMC is ready for input - set offline and launch
               commandSent = true;
               sendCommand('offline true');
@@ -411,6 +418,16 @@ export class IconsGenerator {
       output.includes('[minecraft/Minecraft]: Loaded 0 advancements') ||
       output.includes('HMC Specifics initialized') ||
       (output.includes('[Render thread/INFO]') && output.includes('Loaded '));
+  }
+
+  /**
+   * Determine if the HeadlessMC launcher is ready to accept commands based on its startup output.
+   * In non-TTY mode HeadlessMC does not print a '>' prompt, so we detect readiness from the
+   * version-table header or the DefaultCommandLineProvider warning it prints on startup.
+   */
+  public isHeadlessMcReady(output: string): boolean {
+    return output.includes('id   name   parent') ||
+      output.includes('DefaultCommandLineProvider');
   }
 
   /**
