@@ -215,6 +215,18 @@ describe('IconsGenerator', () => {
       )).toBe(true);
     });
 
+    it('should return true when AdvancementTree has loaded advancements', () => {
+      expect(generator.isGameFullyLoaded(
+        '[08:01:02] [Render thread/INFO] [minecraft/AdvancementTree]: Loaded 1582 advancements'
+      )).toBe(true);
+    });
+
+    it('should return false when RecipeManager has loaded recipes (premature load signal)', () => {
+      expect(generator.isGameFullyLoaded(
+        '[08:01:02] [Render thread/INFO] [minecraft/RecipeManager]: Loaded 3211 recipes'
+      )).toBe(false);
+    });
+
     it('should return false for unrelated output', () => {
       expect(generator.isGameFullyLoaded('[INFO] Starting Minecraft...')).toBe(false);
     });

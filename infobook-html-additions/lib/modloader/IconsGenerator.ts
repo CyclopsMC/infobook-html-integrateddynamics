@@ -286,14 +286,14 @@ export class IconsGenerator {
 
           case 'game_launching':
             // Wait for NeoForge to finish loading
-            if (this.isGameFullyLoaded(outputBuffer) && !commandSent) {
+            if (this.isGameFullyLoaded(stateBuffer) && !commandSent) {
               commandSent = true;
               // Wait a moment for hmc-specifics to be fully initialized
               setTimeout(() => {
                 sendCommand('gui');
                 transitionTo('checking_screen');
               }, 5000);
-            } else if (Date.now() - stateSettledAt > 120000 && !commandSent) {
+            } else if (Date.now() - stateSettledAt > 300000 && !commandSent) {
               // 5-minute timeout: if game output is not being relayed to HMC stdout
               // (e.g. HMCLog4JAppender terminal is null), proceed assuming game is loaded
               commandSent = true;
@@ -511,10 +511,15 @@ export class IconsGenerator {
   public isGameFullyLoaded(output: string): boolean {
     // NeoForge loading complete indicator
     return output.includes('Mod loading complete') ||
+      // Vanilla: logged by minecraft/Minecraft when there are 0 advancements
       output.includes('[minecraft/Minecraft]: Loaded 0 advancements') ||
+      // Normal case: logged by AdvancementTree after all advancements are loaded;
+      // appears near the very end of the loading sequence, just before TitleScreen.
+      // NOTE: do NOT use a broad '[Render thread/INFO] + Loaded' match here —
+      // that fires prematurely on earlier lines such as RecipeManager output.
+      output.includes('[minecraft/AdvancementTree]: Loaded ') ||
       output.includes('HMC Specifics initialized') ||
-      output.includes('HMC-Specifics initialized') ||
-      (output.includes('[Render thread/INFO]') && output.includes('Loaded '));
+      output.includes('HMC-Specifics initialized');
   }
 
   /**
