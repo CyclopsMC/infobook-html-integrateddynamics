@@ -44,7 +44,6 @@ jobs:
       - name: Compress icons 🗜️
         run: npm run generate:compress
       - name: Restore unchanged icons and track Minecraft version 🔄
-        if: github.ref == 'refs/heads/master'
         run: |
           # Read the current Minecraft version from modpack.json
           MC_VERSION=$(python3 -c "import json; print(json.load(open('modpack.json'))['minecraft'])")
