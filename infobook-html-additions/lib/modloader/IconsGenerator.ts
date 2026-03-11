@@ -343,24 +343,32 @@ export class IconsGenerator {
           case 'navigating_singleplayer':
             // Poll gui to detect which screen we're on after clicking Singleplayer.
             // Use lastKnownScreen (from most recent gui output) to avoid stale matches.
+            // IMPORTANT: check world-load signals BEFORE the SelectWorldScreen check so that
+            // a stale lastKnownScreen value of SelectWorldScreen does not trigger another
+            // "Create New World" click after the world has already loaded silently.
             if (lastKnownScreen.includes('CreateWorldScreen') && !commandSent) {
               // World creation settings screen - confirm by clicking Create New World
               commandSent = true;
               clickByText('Create New World');
               transitionTo('creating_world');
-            } else if ((lastKnownScreen.includes('SelectWorldScreen') ||
-                        lastKnownScreen.includes('WorldSelectionScreen')) && !commandSent) {
-              // World selection list - click Create New World, then poll to detect CreateWorldScreen
-              commandSent = true;
-              clickByText('Create New World');
-              setTimeout(() => { commandSent = false; }, 3000);
             } else if ((stateBuffer.includes('logged in') || stateBuffer.includes('not displaying a Gui')) && !commandSent) {
-              // World already loaded (e.g. existing world auto-loaded)
+              // World already loaded (detected either from HMC login message or from a gui poll)
               commandSent = true;
               setTimeout(() => {
                 sendCommand(`/iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
                 transitionTo('exporting_icons');
               }, 3000);
+            } else if ((lastKnownScreen.includes('SelectWorldScreen') ||
+                        lastKnownScreen.includes('WorldSelectionScreen')) && !commandSent) {
+              // World selection list: click Create New World, then actively poll gui so we detect
+              // either CreateWorldScreen (needs a second click) or a loaded world ("not displaying
+              // a Gui") even if the game produces no further stdout after the click.
+              commandSent = true;
+              clickByText('Create New World');
+              setTimeout(() => {
+                sendCommand('gui');
+                commandSent = false;
+              }, 8000);
             } else if (Date.now() - stateSettledAt > 60000 && !commandSent) {
               // Fallback: re-check current GUI
               commandSent = true;
@@ -391,6 +399,14 @@ export class IconsGenerator {
               commandSent = true;
               sendCommand(`/iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
               transitionTo('exporting_icons');
+            } else if (!commandSent) {
+              // Actively poll gui so we can detect world load ("not displaying a Gui") even
+              // when the game produces no stdout after loading completes.
+              commandSent = true;
+              setTimeout(() => {
+                sendCommand('gui');
+                commandSent = false;
+              }, 5000);
             }
             break;
 
@@ -441,12 +457,21 @@ export class IconsGenerator {
         handleOutput(errChunk);
       });
 
+      // Heartbeat: drive state-machine advances (timeouts, polling) even when the game
+      // produces no stdout/stderr output.  Without this the machine freezes permanently
+      // after the game goes silent (e.g. after a world finishes loading).
+      const heartbeatInterval = setInterval(() => {
+        handleOutput('');
+      }, 5000);
+
       const launchTimeout = setTimeout(() => {
+        clearInterval(heartbeatInterval);
         proc.kill('SIGTERM');
         reject(new Error(`HeadlessMC timed out after ${this.launchTimeoutMs / 1000}s in state: ${state}`));
       }, this.launchTimeoutMs);
 
       proc.on('exit', (code) => {
+        clearInterval(heartbeatInterval);
         clearTimeout(launchTimeout);
         if (state === 'quitting' || code === 0) {
           resolve();
@@ -456,6 +481,7 @@ export class IconsGenerator {
       });
 
       proc.on('error', (err) => {
+        clearInterval(heartbeatInterval);
         clearTimeout(launchTimeout);
         reject(err);
       });

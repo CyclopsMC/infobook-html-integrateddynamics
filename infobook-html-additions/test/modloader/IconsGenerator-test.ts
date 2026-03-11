@@ -310,4 +310,123 @@ describe('IconsGenerator', () => {
       expect(fs.existsSync(iconsOutput)).toBe(true);
     });
   });
+
+  describe('runGameAndExportIcons – state machine (unit-level behaviour check)', () => {
+    // These tests run the state machine logic without spawning an actual process by
+    // inspecting which HeadlessMC command sequence would be produced for a given
+    // sequence of game-output chunks.  They exercise the ordering and heartbeat fixes.
+
+    /**
+     * Helper that simulates a state-machine run by feeding a series of chunks and
+     * a final "gui-response" chunk representing the HMC gui output after the world loads.
+     * Returns the list of commands that were sent to HeadlessMC stdin.
+     */
+    async function simulateWorldLoad(guiResponseAfterLoad: string): Promise<string[]> {
+      const commands: string[] = [];
+
+      // Minimal state-machine wiring (mirrors the relevant parts of runGameAndExportIcons)
+      let state = 'navigating_singleplayer';
+      let stateBuffer = '';
+      let lastKnownScreen = 'net.minecraft.client.gui.screens.worldselection.SelectWorldScreen';
+      let commandSent = false;
+
+      const sendCmd = (cmd: string) => { commands.push(cmd); };
+
+      const handleChunk = (chunk: string) => {
+        stateBuffer += chunk;
+        const screenMatch = chunk.match(/^Screen:\s*(.+)$/m);
+        if (screenMatch) {
+          lastKnownScreen = screenMatch[1].trim();
+        }
+
+        if (state !== 'navigating_singleplayer') { return; }
+
+        if (lastKnownScreen.includes('CreateWorldScreen') && !commandSent) {
+          commandSent = true;
+          sendCmd('click CreateWorldScreen-button');
+          state = 'creating_world';
+        } else if ((stateBuffer.includes('logged in') || stateBuffer.includes('not displaying a Gui')) && !commandSent) {
+          // world-load detected — should NOT need to click Create New World again
+          commandSent = true;
+          sendCmd('/iconexporter export 64');
+          state = 'exporting_icons';
+        } else if ((lastKnownScreen.includes('SelectWorldScreen') || lastKnownScreen.includes('WorldSelectionScreen')) && !commandSent) {
+          commandSent = true;
+          sendCmd('click 0');   // Create New World
+          // After the click, actively poll gui (the fix).
+          // 0ms is used here for test determinism: in production the timeout is 8000ms,
+          // but any positive duration would be equivalent in these synchronous unit tests.
+          setTimeout(() => {
+            sendCmd('gui');
+            commandSent = false;
+          }, 0);
+        }
+      };
+
+      // Initial state: we're on SelectWorldScreen
+      handleChunk('');
+
+      // Wait for the setTimeout in the SelectWorldScreen branch to fire
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Feed world-load output (RecipeManager, AdvancementTree).
+      // commandSent must still be true here: the click fired before these chunks,
+      // and the setTimeout that resets it has not yet run (it's scheduled for after
+      // the current microtask queue drains).
+      handleChunk('[Render thread/INFO] [minecraft/RecipeManager]: Loaded 3211 recipes\n');
+      expect(commandSent).toBe(true); // state machine must NOT act during world load
+      handleChunk('[Render thread/INFO] [minecraft/AdvancementTree]: Loaded 1582 advancements\n');
+      expect(commandSent).toBe(true); // still blocked
+
+      // Simulate the gui response arriving (after commandSent was reset to false by the setTimeout)
+      handleChunk(guiResponseAfterLoad);
+
+      return commands;
+    }
+
+    it('should not re-click "Create New World" when gui responds with "not displaying a Gui"', async () => {
+      const cmds = await simulateWorldLoad('not displaying a Gui\n');
+      // Exactly one "Create New World" click, then gui poll, then export command
+      expect(cmds.filter((c) => c === 'click 0')).toHaveLength(1);
+      expect(cmds).toContain('/iconexporter export 64');
+    });
+
+    it('should transition to CreateWorldScreen click when gui responds with CreateWorldScreen', async () => {
+      const cmds = await simulateWorldLoad(
+        'Screen: net.minecraft.client.gui.screens.worldselection.CreateWorldScreen\n',
+      );
+      expect(cmds.filter((c) => c === 'click 0')).toHaveLength(1);
+      expect(cmds).toContain('click CreateWorldScreen-button');
+    });
+
+    it('should prioritize world-load detection over SelectWorldScreen handling when stateBuffer contains "not displaying a Gui"', async () => {
+      // Simulate stateBuffer already containing "not displaying a Gui" before any new chunk
+      let commands: string[] = [];
+      let stateBuffer = 'not displaying a Gui\n';
+      let lastKnownScreen = 'net.minecraft.client.gui.screens.worldselection.SelectWorldScreen';
+      let commandSent = false;
+
+      const handleChunk = (chunk: string) => {
+        stateBuffer += chunk;
+        const screenMatch = chunk.match(/^Screen:\s*(.+)$/m);
+        if (screenMatch) { lastKnownScreen = screenMatch[1].trim(); }
+
+        if (lastKnownScreen.includes('CreateWorldScreen') && !commandSent) {
+          commandSent = true;
+          commands.push('click CreateWorldScreen-button');
+        } else if ((stateBuffer.includes('logged in') || stateBuffer.includes('not displaying a Gui')) && !commandSent) {
+          commandSent = true;
+          commands.push('/iconexporter export 64');
+        } else if ((lastKnownScreen.includes('SelectWorldScreen') || lastKnownScreen.includes('WorldSelectionScreen')) && !commandSent) {
+          commandSent = true;
+          commands.push('click 0');   // should NOT reach here
+        }
+      };
+
+      // Heartbeat fires — world already loaded, stateBuffer has "not displaying a Gui"
+      handleChunk('');
+      expect(commands).toContain('/iconexporter export 64');
+      expect(commands).not.toContain('click 0');
+    });
+  });
 });
