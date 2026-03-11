@@ -4,7 +4,8 @@
   "private": true,
   "description": "Icon generation additions for cyclops-infobook-html",
   "bin": {
-    "generate-icons": "bin/generate-icons.js"
+    "generate-icons": "bin/generate-icons.js",
+    "compress-icons": "bin/compress-icons.js"
   },
   "scripts": {
     "build": "tsc",
@@ -16,6 +17,7 @@
     "@types/node-fetch": "^2.5.0",
     "minimist": "^1.2.0",
     "node-fetch": "^2.6.0",
+    "optipng-bin": "^9.0.0",
     "typescript": "^5.0.0"
   }
 }
