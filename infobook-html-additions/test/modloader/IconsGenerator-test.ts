@@ -311,6 +311,54 @@ describe('IconsGenerator', () => {
     });
   });
 
+  describe('findButtonIdByText', () => {
+    let generator: IconsGenerator;
+
+    beforeEach(() => {
+      generator = new IconsGenerator(BASE_ARGS);
+    });
+
+    it('should return the correct button id from a simple gui output', () => {
+      const gui = 'Screen: SomeScreen\nButtons:\nid   text\n1    Create New World\n2    Cancel\n';
+      expect(generator.findButtonIdByText(gui, 'Create New World')).toBe(1);
+      expect(generator.findButtonIdByText(gui, 'Cancel')).toBe(2);
+    });
+
+    it('should return null when button text is not found', () => {
+      const gui = 'Screen: SomeScreen\nButtons:\nid   text\n1    Singleplayer\n';
+      expect(generator.findButtonIdByText(gui, 'Multiplayer')).toBeNull();
+    });
+
+    it('should return the correct button id from the latest gui block (single screen in output)', () => {
+      const createWorldScreenGui =
+        '\nScreen: net.minecraft.client.gui.screens.worldselection.CreateWorldScreen\n' +
+        'Buttons:\nid   text               x     y\n' +
+        '0    Cancel             217   214\n' +
+        '1    Create New World   59    214\n';
+      expect(generator.findButtonIdByText(createWorldScreenGui, 'Create New World')).toBe(1);
+      expect(generator.findButtonIdByText(createWorldScreenGui, 'Cancel')).toBe(0);
+    });
+
+    it('should find button id from the most recent screen when multiple screens are present in accumulated output', () => {
+      // Simulates an outputBuffer that accumulated both SelectWorldScreen (Create New World = 0)
+      // and CreateWorldScreen (Create New World = 1, Cancel = 0) responses.
+      // clickByText slices from the last \nScreen: so it passes only the CreateWorldScreen block.
+      const accumulated =
+        '\nScreen: net.minecraft.client.gui.screens.worldselection.SelectWorldScreen\n' +
+        'Buttons:\nid   text\n0    Create New World\n1    Play Selected World\n' +
+        '\nScreen: net.minecraft.client.gui.screens.worldselection.CreateWorldScreen\n' +
+        'Buttons:\nid   text\n0    Cancel\n1    Create New World\n';
+
+      // Searching the full buffer returns the FIRST match (stale, id=0) — this was the bug
+      expect(generator.findButtonIdByText(accumulated, 'Create New World')).toBe(0);
+
+      // Searching only from the last Screen: returns the correct match (id=1) — this is the fix
+      const lastScreenIdx = accumulated.lastIndexOf('\nScreen:');
+      const latestBlock = accumulated.slice(lastScreenIdx);
+      expect(generator.findButtonIdByText(latestBlock, 'Create New World')).toBe(1);
+    });
+  });
+
   describe('runGameAndExportIcons – state machine (unit-level behaviour check)', () => {
     // These tests run the state machine logic without spawning an actual process by
     // inspecting which HeadlessMC command sequence would be produced for a given

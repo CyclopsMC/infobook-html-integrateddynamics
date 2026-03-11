@@ -229,8 +229,12 @@ export class IconsGenerator {
 
       // Click a button by its text label, resolving to numeric ID from the last gui output.
       // HeadlessMC's click command requires the numeric id, not button text.
+      // IMPORTANT: search only the most recent gui response block (from the last 'Screen:' line
+      // onward) so that stale button IDs from earlier gui responses in outputBuffer are ignored.
       const clickByText = (buttonText: string): void => {
-        const id = this.findButtonIdByText(outputBuffer, buttonText);
+        const lastScreenIdx = outputBuffer.lastIndexOf('\nScreen:');
+        const recentGuiOutput = lastScreenIdx >= 0 ? outputBuffer.slice(lastScreenIdx) : outputBuffer;
+        const id = this.findButtonIdByText(recentGuiOutput, buttonText);
         if (id !== null) {
           sendCommand(`click ${id}`);
         } else {
@@ -394,6 +398,14 @@ export class IconsGenerator {
                 sendCommand(`/iconexporter export ${IconsGenerator.DEFAULT_ICON_SIZE}`);
                 transitionTo('exporting_icons');
               }, 3000);
+            } else if ((lastKnownScreen.includes('SelectWorldScreen') ||
+                        lastKnownScreen.includes('WorldSelectionScreen')) && !commandSent) {
+              // World creation was cancelled/failed and game returned to world-selection screen.
+              // Both 'SelectWorldScreen' and 'WorldSelectionScreen' are checked defensively
+              // in case the class name differs across Minecraft/HeadlessMC versions.
+              // Re-enter navigating_singleplayer to retry world creation.
+              process.stdout.write('[HMC] World creation returned to SelectWorldScreen, retrying...\n');
+              transitionTo('navigating_singleplayer');
             } else if (Date.now() - stateSettledAt > 120000 && !commandSent) {
               // Timeout waiting for world - try to proceed anyway
               commandSent = true;
