@@ -398,9 +398,11 @@ export class IconsGenerator {
             // Use stateBuffer (cleared on transition) so early startup '[iconexporter] version check'
             // lines in the global outputBuffer don't fire this prematurely.
             // Set commandSent immediately to prevent queuing multiple quit timers.
+            // Only match the literal completion string from gui.itemexporter.finished ("Finished exporting")
+            // — do NOT use path fragments like 'icon-exports' which appear in Mekanism error stack traces
+            // and would cause a premature exit before the export finishes.
             if (!commandSent) {
-              if (stateBuffer.includes('Finished exporting') || stateBuffer.includes('icon-exports') ||
-                  stateBuffer.includes('Exported ') || stateBuffer.includes('export complete')) {
+              if (stateBuffer.includes('Finished exporting')) {
                 // Export completion detected - wait a moment for files to flush, then quit
                 commandSent = true;
                 process.stdout.write('[HMC] Icon export completion detected, quitting in 5s...\n');
