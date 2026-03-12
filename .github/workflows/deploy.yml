@@ -3,6 +3,8 @@ on: [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
@@ -31,14 +33,16 @@ jobs:
           npm install --legacy-peer-deps
           npm run build
           npm run lint
+      - name: Generate modpack.json from POM 📋
+        run: npm run generate:modpack
       - name: Download mods and generate metadata 📦
         run: npm run generate:metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Xvfb 🖥️
         run: sudo apt-get install -y xvfb
       - name: Generate icons 🎨
         run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" npm run generate:icons
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate HTML 📄
         run: npm run generate:html
       - name: Compress icons 🗜️

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.cyclops</groupId>
+  <artifactId>infobook-html-integrateddynamics-modpack</artifactId>
+  <version>1.21.1</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <neoforge.version>21.1.210</neoforge.version>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.cyclops.cyclopscore</groupId>
+      <artifactId>cyclopscore-1.21.1-neoforge</artifactId>
+      <version>1.27.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cyclops.commoncapabilities</groupId>
+      <artifactId>commoncapabilities-1.21.1-neoforge</artifactId>
+      <version>2.10.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cyclops.integrateddynamics</groupId>
+      <artifactId>integrateddynamics-1.21.1-neoforge</artifactId>
+      <version>1.28.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cyclops.integratedtunnels</groupId>
+      <artifactId>integratedtunnels-1.21.1-neoforge</artifactId>
+      <version>1.9.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cyclops.integratedterminals</groupId>
+      <artifactId>integratedterminals-1.21.1-neoforge</artifactId>
+      <version>1.6.16</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cyclops.integratedcrafting</groupId>
+      <artifactId>integratedcrafting-1.21.1-neoforge</artifactId>
+      <version>1.3.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cyclops.integratedrest</groupId>
+      <artifactId>integratedrest-1.21.1-neoforge</artifactId>
+      <version>1.1.15</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cyclops.integratedscripting</groupId>
+      <artifactId>integratedscripting-1.21.1-neoforge</artifactId>
+      <version>1.0.19</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.cyclops.integratedmekanism</groupId>
+      <artifactId>integratedmekanism-1.21.1-neoforge</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>mekanism</groupId>
+      <artifactId>Mekanism</artifactId>
+      <version>1.21.1-10.7.16.82</version>
+      <classifier>all</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>mekanism</groupId>
+      <artifactId>MekanismGenerators</artifactId>
+      <version>1.21.1-10.7.16.82</version>
+    </dependency>
+
+  </dependencies>
+
+</project>

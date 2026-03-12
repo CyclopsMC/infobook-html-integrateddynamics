@@ -29,7 +29,7 @@
     "pre-commit": "^1.2.2",
     "tslint": "^5.16.0",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.4.5"
+    "typescript": "^5.0.0"
   },
   "scripts": {
     "lint": "tslint index.ts lib/**/*.ts test/**/*.ts bin/**/*.ts --exclude '**/*.d.ts'",
@@ -38,13 +38,14 @@
     "validate": "npm ls",
     "prepare": "npm run build",
     "generate": "npm run generate:metadata && npm run generate:icons && npm run generate:html && npm run generate:compress",
+    "generate:modpack": "convert-pom-to-modpack modpack.pom.xml settings.xml modpack.json",
     "generate:metadata": "generate-mod-metadata modpack.json generate",
     "generate:icons": "generate-icons modpack.json",
     "generate:html": "generate-cyclops-infobook-html config.json output",
     "generate:compress": "compress-icons output"
   },
   "dependencies": {
-    "cyclops-infobook-html": "^5.1.0",
+    "cyclops-infobook-html": "^5.2.0",
     "pug": "^2.0.4"
   }
 }
