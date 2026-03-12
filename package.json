@@ -45,7 +45,7 @@
     "generate:compress": "compress-icons output"
   },
   "dependencies": {
-    "cyclops-infobook-html": "^5.2.0",
+    "cyclops-infobook-html": "5.2.1",
     "pug": "^2.0.4"
   }
 }

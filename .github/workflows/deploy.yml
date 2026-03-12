@@ -33,8 +33,6 @@ jobs:
           npm run lint
       - name: Generate modpack.json from POM 📋
         run: npm run generate:modpack
-      - name: Fix third-party mod repos in modpack.json 🔧
-        run: python3 scripts/fix-modpack-repos.py
       - name: Download mods and generate metadata 📦
         run: npm run generate:metadata
         env:
