@@ -77,6 +77,12 @@
       <classifier>all</classifier>
     </dependency>
 
+    <dependency>
+      <groupId>mekanism</groupId>
+      <artifactId>MekanismGenerators</artifactId>
+      <version>1.21.1-10.7.18.84</version>
+    </dependency>
+
   </dependencies>
 
 </project>
