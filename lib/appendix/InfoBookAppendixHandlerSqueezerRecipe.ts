@@ -32,8 +32,8 @@ export class InfoBookAppendixHandlerSqueezerRecipe extends InfoBookAppendixHandl
   protected async serializeRecipe(recipe: IRecipeSqueezer, context: ISerializeContext,
                                   fileWriter: IFileWriter, serializer: HtmlInfoBookSerializer) {
     // Input
-    const input = recipe.input.map((item) => serializer.createItemDisplay(this.resourceHandler,
-      context, fileWriter, item, true));
+    const input = await Promise.all(recipe.input.map((item) => serializer.createItemDisplay(this.resourceHandler,
+      context, fileWriter, item, true)));
 
     // Outputs
     const outputs = [];
