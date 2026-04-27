@@ -49,7 +49,7 @@
     <dependency>
       <groupId>org.cyclops.integratedcrafting</groupId>
       <artifactId>integratedcrafting-1.21.1-neoforge</artifactId>
-      <version>1.4.5-539</version>
+      <version>1.4.6-567</version>
     </dependency>
 
     <dependency>
