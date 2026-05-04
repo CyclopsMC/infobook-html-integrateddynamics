@@ -8,6 +8,7 @@
     <activeProfile>modmaven</activeProfile>
     <activeProfile>cursemaven</activeProfile>
     <activeProfile>public</activeProfile>
+    <activeProfile>creeperhost</activeProfile>
   </activeProfiles>
 
   <profiles>
@@ -51,6 +52,16 @@
         <repository>
           <id>central</id>
           <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+      </repositories>
+    </profile>
+
+    <profile>
+      <id>creeperhost</id>
+      <repositories>
+        <repository>
+          <id>creeperhost</id>
+          <url>https://maven.creeperhost.net/</url>
         </repository>
       </repositories>
     </profile>
