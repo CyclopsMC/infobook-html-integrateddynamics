@@ -26,6 +26,12 @@
       "matchManagers": ["maven"],
       "matchPackagePrefixes": ["org.cyclops."],
       "groupName": "Cyclops packages"
+    },
+    {
+      "matchManagers": ["maven"],
+      "matchPackageNames": ["com.refinedmods.refinedstorage:refinedstorage-neoforge"],
+      "matchFileNames": ["modpack.pom.xml"],
+      "allowedVersions": "/^2\\./"
     }
   ],
   "github-actions": {
