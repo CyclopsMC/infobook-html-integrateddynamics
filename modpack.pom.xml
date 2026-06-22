@@ -43,7 +43,7 @@
     <dependency>
       <groupId>org.cyclops.integratedterminals</groupId>
       <artifactId>integratedterminals-1.21.1-neoforge</artifactId>
-      <version>1.6.28-736</version>
+      <version>1.7.0-780</version>
     </dependency>
 
     <dependency>
@@ -61,7 +61,7 @@
     <dependency>
       <groupId>org.cyclops.integratedscripting</groupId>
       <artifactId>integratedscripting-1.21.1-neoforge</artifactId>
-      <version>1.0.22-370</version>
+      <version>1.0.22-376</version>
     </dependency>
 
     <dependency>
