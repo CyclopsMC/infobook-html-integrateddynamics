@@ -65,6 +65,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.cyclops.integratednbt</groupId>
+      <artifactId>integratednbt-1.21.1-neoforge</artifactId>
+      <version>1.6.1-28</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.cyclops.integratedmekanism</groupId>
       <artifactId>integratedmekanism-1.21.1-neoforge</artifactId>
       <version>1.0.4-102</version>
