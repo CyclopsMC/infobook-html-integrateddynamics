@@ -46,6 +46,10 @@
         "modId": "integratedscripting"
       },
       {
+        "sectionsFile": "mod_assets/integratednbt/info/nbt_info.xml",
+        "modId": "integratednbt"
+      },
+      {
         "sectionsFile": "mod_assets/integratedmekanism/info/mekanism_info.xml",
         "modId": "integratedmekanism"
       }
@@ -66,6 +70,10 @@
       {
         "sectionsFile": "mod_assets/integratedscripting/info/scripting_tutorials.xml",
         "modId": "integratedscripting"
+      },
+      {
+        "sectionsFile": "mod_assets/integratednbt/info/nbt_tutorials.xml",
+        "modId": "integratednbt"
       },
       {
         "sectionsFile": "mod_assets/integratedmekanism/info/mekanism_tutorials.xml",
