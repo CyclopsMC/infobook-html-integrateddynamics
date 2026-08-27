@@ -31,13 +31,13 @@
     <dependency>
       <groupId>org.cyclops.integrateddynamics</groupId>
       <artifactId>integrateddynamics-1.21.1-neoforge</artifactId>
-      <version>1.35.0-1948</version>
+      <version>1.35.0-1963</version>
     </dependency>
 
     <dependency>
       <groupId>org.cyclops.integratedtunnels</groupId>
       <artifactId>integratedtunnels-1.21.1-neoforge</artifactId>
-      <version>1.10.0-698</version>
+      <version>1.10.0-709</version>
     </dependency>
 
     <dependency>
