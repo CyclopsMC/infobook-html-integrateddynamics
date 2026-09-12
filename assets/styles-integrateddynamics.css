@@ -1,87 +1,164 @@
-.squeezer-recipe,
-.drying-basin-recipe,
-.aspect,
-.operator {
-    width: 300px;
-}
+/*
+ * Integrated Dynamics specific appendix styles.
+ *
+ * The squeezer and drying basin recipes are laid out by the shared recipe rules
+ * in the base stylesheet, so only the aspect and operator appendices are styled here.
+ */
 
-.appendix .squeezer-recipe .appendix-icon,
-.appendix .drying-basin-recipe .appendix-icon {
-    position: relative;
-    top: 10px;
-    left: 133px;
-    margin-bottom: -28px;
-    z-index: 10;
-}
-
-.appendix .squeezer-recipe .recipe-duration,
-.appendix .drying-basin-recipe .recipe-duration {
-    font-size: 10px;
-    position: relative;
-    top: 36px;
-}
+/* ---------- Aspects ---------- */
 
 .appendix .aspect {
-    font-size: 12px;
+    font-size: 14px;
     text-align: left;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        'name value'
+        'description description'
+        'properties properties';
+    column-gap: 12px;
+    align-items: baseline;
+    padding: 4px 0;
 }
 
 .appendix .aspect .aspect-name {
-    font-weight: bold;
+    grid-area: name;
+    font-weight: 700;
+    color: var(--color-h);
 }
 
 .appendix .aspect .aspect-name::after {
-    content: ': ';
+    content: none;
+}
+
+.appendix .aspect .aspect-description {
+    grid-area: description;
+}
+
+.appendix .aspect .aspect-value {
+    grid-area: value;
+    margin: 0;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.appendix .aspect .aspect-value strong {
+    font-weight: 400;
+    color: var(--ink-muted);
+}
+
+.aspect .aspect-properties {
+    grid-area: properties;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+    font-size: 12px;
+}
+
+.aspect .aspect-properties:has(ul:empty) {
+    display: none;
 }
 
 .aspect .aspect-properties .label {
-    font-weight: bold;
+    color: var(--ink-muted);
+}
+
+.aspect .aspect-properties ul {
+    display: contents;
 }
 
 .aspect .aspect-properties li {
-    list-style-type: circle;
+    list-style: none;
+    padding: 0 8px;
+    border: 1px solid var(--page-line);
+    border-radius: 999px;
+    background: var(--page);
 }
 
+/* ---------- Operators ---------- */
+
 .appendix .operator {
-    font-size: 12px;
+    font-size: 14px;
     text-align: left;
+    padding: 4px 0;
 }
 
 .appendix .operator .operator-name {
-    font-weight: bold;
+    font-weight: 700;
+    color: var(--color-h);
 }
 
 .appendix .operator .operator-symbol {
-    font-style: italic;
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 12px;
+    margin-left: 8px;
+    padding: 0 6px;
+    border: 1px solid var(--page-line);
+    border-radius: 4px;
+    background: var(--page);
 }
 
-.appendix .operator .operator-symbol::before {
-    content: ' (';
-}
-
-.appendix .operator ul {
-    text-align: center;
-    padding: 0;
-    margin: 0;
-}
-
-.appendix .operator ul li {
-    display: inline-block;
-    padding: 2px;
-}
-
-.appendix .operator ul li:not(:first-child)::before {
-    content: "\002192";
-}
-
+.appendix .operator .operator-symbol::before,
 .appendix .operator .operator-symbol::after {
-    content: ')';
+    content: none;
+}
+
+.appendix .operator .operator-description {
+    display: block;
+    margin-top: 2px;
 }
 
 .appendix .operator .operator-description::before {
-    content: ': ';
+    content: none;
+}
+
+/* Signature: inputs → output */
+.appendix .operator ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin: 8px 0;
+    padding: 0;
+    text-align: left;
+}
+
+.appendix .operator ul li {
+    list-style: none;
+    display: inline-block;
+    position: relative;
+    padding: 1px 8px;
+    border-radius: 4px;
+    background: var(--page);
+    border: 1px solid var(--page-line);
+    font-size: 13px;
+}
+
+.appendix .operator ul li:not(:first-child) {
+    margin-left: 22px;
+}
+
+.appendix .operator ul li:not(:first-child)::before {
+    content: '\2192';
+    position: absolute;
+    left: -19px;
+    color: var(--ink-muted);
+}
+
+.appendix .operator ul li:last-child {
+    border-color: var(--color-border);
 }
 
 .appendix .operator .operator-interact-name {
     display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+    overflow-wrap: anywhere;
+}
+
+.appendix .operator .operator-interact-name .mc {
+    font-weight: 400;
 }
