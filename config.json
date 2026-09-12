@@ -17,7 +17,8 @@
     "main_background": "#e6d6ac",
     "outer_background": "#09171f"
   },
-  "icon": "https://integrateddynamics.rubensworks.net/book/assets/icons/integrateddynamics__cable.png",
+  "icon": "https://integrateddynamics.rubensworks.net/book/assets/icon/integrateddynamics__cable.png",
+  "bookIconItem": "integrateddynamics:on_the_dynamics_of_integration",
   "modId": "integrateddynamics",
   "modName": "Integrated Dynamics",
   "modUrl": "https://integrateddynamics.rubensworks.net/",
