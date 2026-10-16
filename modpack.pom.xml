@@ -43,13 +43,13 @@
     <dependency>
       <groupId>org.cyclops.integratedterminals</groupId>
       <artifactId>integratedterminals-1.21.1-neoforge</artifactId>
-      <version>1.10.0-1059</version>
+      <version>1.10.0-1065</version>
     </dependency>
 
     <dependency>
       <groupId>org.cyclops.integratedcrafting</groupId>
       <artifactId>integratedcrafting-1.21.1-neoforge</artifactId>
-      <version>1.7.2-840</version>
+      <version>1.7.2-852</version>
     </dependency>
 
     <dependency>
