@@ -86,11 +86,19 @@
     "key.integrateddynamics.logic_programmer_focus_search": "Alt + F",
     "key.integrateddynamics.logic_programmer_open_rename": "Alt + R",
     "key.integratedterminals.terminal.tab.next": "Tab",
-    "key.integratedterminals.terminal.tab.previous": "Shift + Tabb",
+    "key.integratedterminals.terminal.tab.previous": "Shift + Tab",
     "key.integratedterminals.terminal.craftinggrid.clearplayer": "C",
     "key.integratedterminals.terminal.craftinggrid.clearstorage": "Shift + C",
     "key.integratedterminals.terminal.craftinggrid.balance": "B",
-    "key.integratedterminals.terminal.portable.open": "C"
+    "key.integratedterminals.terminal.portable.open": "C",
+    "key.integratedscripting.undo": "Ctrl + Z",
+    "key.integratedscripting.redo": "Ctrl + Y",
+    "key.integratedscripting.find": "Ctrl + F",
+    "key.integratedscripting.goto_line": "Ctrl + G",
+    "key.integratedscripting.comment": "Ctrl + /",
+    "key.integratedscripting.move_lines_up": "Alt + Up",
+    "key.integratedscripting.move_lines_down": "Alt + Down",
+    "key.integratedscripting.focus_mode": "F12"
   },
   "excludedModLanguages": [
       "minecraft",
